@@ -1,11 +1,13 @@
 import express from 'express';
-import { PrismaClient } from '@prisma/client';
+import volunteerRoute from './routes/volunteer';
 
-
-const prisma = new PrismaClient()
 
 const app = express()
+
+
 app.use(express.json())
+app.use('/Volunteers', volunteerRoute)
+
 const port = 8080
 
 app.get('/', (req, res) => {
@@ -18,42 +20,5 @@ app.listen(port, () => {
 } )
 
 //Get all volunteers
-app.get('/Volunteers', async (req, res) => {
-    
-    const volunteers = await prisma.user.findMany({
-        where: {
-            role: 'VOLUNTEER'
-        }
-    })
 
-    res.status(200).send(volunteers)
-
-})
-
-//Create volunteer
-app.post('/Volunteer', async (req, res) => {
-    const volunteer = await prisma.user.create({
-        data: {
-            //TODO: include profile in query
-            username: req.body.username,
-            password: req.body.password,
-            role: 'VOLUNTEER'
-        }
-    })
-    res.status(201).send(volunteer)
-})
-
-//TODO: Update Volunteer
-
-
-//Delete volunteer
-app.delete('/Volunteer/:id', async (req, res) => {
-    const id = parseInt(req.params.id)
-    await prisma.user.delete({
-        where: {
-            id 
-        }
-    })
-    res.sendStatus(203)
-})
 
