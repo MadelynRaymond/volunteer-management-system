@@ -4,7 +4,7 @@ const app = express()
 const port = 8080
 
 app.get('/', (req, res) => {
-    res.send("Hello World.")
+    res.status(200).send({message: 'hello, world'})
 })
 
 

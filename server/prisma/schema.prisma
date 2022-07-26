@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  password String
+  role String
+  profile Profile?
+
+}
+
+model Profile {
+  firstName String 
+  lastName String
+  ///skills / interests
+  bio String?
+  address String
+  homePhoneNumber String?
+  workPhoneNumber String?
+  cellPhoneNumber String?
+  email String
+  education String?
+  currentLicenses String?
+  driversLicenseOnFile Boolean
+  socialSecurityOnFile Boolean
+  approvalStatus String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
+  emergencyInfo EmergencyContactInfo?
+  availability Availability?
+  centerPreference VolunteerPrefers?
+}
+
+model Availability {
+  volunteerId Int @id
+  volunteer Profile @relation(fields: [volunteerId], references: [userId])
+}
+
+model VolunteerPrefers {
+
+  volunteer Profile @relation(fields: [volunteerId], references: [userId])
+  center Center @relation(fields: [centerName], references: [name])
+  volunteerId Int @unique
+  centerName String @unique
+}
+
+model Center {
+  name String @id
+  volunteerId Int @unique
+  preference VolunteerPrefers?
+
+}
+
+model EmergencyContactInfo {
+  contactName String
+  contactHomePhoneNumber String
+  contactWorkPhoneNumber String?
+  contactEmail String?
+  contactAddress String?
+  userId Int @unique
+  profile Profile @relation(fields: [userId], references: [userId])
+}

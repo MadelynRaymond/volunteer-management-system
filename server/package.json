@@ -9,10 +9,12 @@
   "author": "Madelyn Raymond, Matthew Reid, Zoey Morris, Bryan Torres",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.1.0",
     "express": "^4.18.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "prisma": "^4.1.0",
     "typescript": "^4.7.4"
   }
 }
