@@ -28,6 +28,7 @@ app.get('/Volunteers', async (req, res) => {
 app.post('/Volunteer', async (req, res) => {
     const volunteer = await prisma.user.create({
         data: {
+            //TODO: include profile in query
             username: req.body.username,
             password: req.body.password,
             role: 'VOLUNTEER'
@@ -35,6 +36,7 @@ app.post('/Volunteer', async (req, res) => {
     });
     res.status(201).send(volunteer);
 });
+//TODO: Update Volunteer
 //Delete volunteer
 app.delete('/Volunteer/:id', async (req, res) => {
     const id = parseInt(req.params.id);
