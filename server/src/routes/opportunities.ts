@@ -5,6 +5,14 @@ import prisma from '../prisma-init'
 const opportunitiesRoute = express.Router()
 
 
+opportunitiesRoute.get('/', async (req, res) => {
+    
+    const opportunities = await prisma.opportunity.findMany()
+  
+    res.status(200).send(opportunities)
+  
+  })
+
 opportunitiesRoute.post('/', async (req, res) => {
     const { name, startTime, endTime, centerId, location, description } = req.body
 
