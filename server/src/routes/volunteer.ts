@@ -28,30 +28,20 @@ volunteerRoute.get('/', async (req, res) => {
 //TODO: Add query validation
 volunteerRoute.post('/', async (req, res) => {
 
-  const {username, password, firstName, lastName, address, cellPhoneNumber,
-     email, driversLicenseOnFile, socialSecurityOnFile, approvalStatus,
-     contactName, contactHomePhoneNumber} = req.body
+  const accountInfo = req.body.accountInfo //username, password
+  const emergencyInfo = req.body.emergencyInfo //firstName, lastName, address, cellPhoneNumber,email, driversLicenseOnFile, socialSecurityOnFile, approvalStatus,
+  const personalInfo = req.body.personalInfo //contactName, contactHomePhoneNumber
   
   const volunteer = await prisma.user.create({
       data: {
-          //TODO: include profile in query
-          username,
-          password,
+          ...accountInfo,
           role: 'VOLUNTEER',
           profile: {
             create: {
-              firstName, 
-              lastName, 
-              address, 
-              cellPhoneNumber,
-              email,
-              driversLicenseOnFile,
-              socialSecurityOnFile,
-              approvalStatus,
+              ...personalInfo,
               emergencyInfo: {
                 create: {
-                  contactName,
-                  contactHomePhoneNumber    
+                  ...emergencyInfo
                 }
               }
             }
@@ -67,7 +57,7 @@ volunteerRoute.post('/', async (req, res) => {
 //Delete volunteer
 //TODO: Add query validation
 volunteerRoute.delete('/:id', async (req, res) => {
-  res.send("hiii")
+
   const id = parseInt(req.params.id)
   
   try {
@@ -83,6 +73,8 @@ volunteerRoute.delete('/:id', async (req, res) => {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
       res.status(404).send({message: 'user not found'})
     }
+    console.log(e)
+    res.sendStatus(500)
   }
 
 })
