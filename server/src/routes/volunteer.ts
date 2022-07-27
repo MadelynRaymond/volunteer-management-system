@@ -10,6 +10,13 @@ volunteerRoute.get('/', async (req, res) => {
   const volunteers = await prisma.user.findMany({
       where: {
           role: 'VOLUNTEER'
+      },
+      include: {
+        profile: {
+          include: {
+            emergencyInfo: true
+          }
+        }
       }
   })
 
@@ -20,23 +27,47 @@ volunteerRoute.get('/', async (req, res) => {
 //Create volunteer
 //TODO: Add query validation
 volunteerRoute.post('/', async (req, res) => {
+
+  const {username, password, firstName, lastName, address, cellPhoneNumber,
+     email, driversLicenseOnFile, socialSecurityOnFile, approvalStatus,
+     contactName, contactHomePhoneNumber} = req.body
+  
   const volunteer = await prisma.user.create({
       data: {
           //TODO: include profile in query
-          username: req.body.username,
-          password: req.body.password,
-          role: 'VOLUNTEER'
+          username,
+          password,
+          role: 'VOLUNTEER',
+          profile: {
+            create: {
+              firstName, 
+              lastName, 
+              address, 
+              cellPhoneNumber,
+              email,
+              driversLicenseOnFile,
+              socialSecurityOnFile,
+              approvalStatus,
+              emergencyInfo: {
+                create: {
+                  contactName,
+                  contactHomePhoneNumber    
+                }
+              }
+            }
+          },
+         
       }
   })
   res.status(201).send(volunteer)
 })
 
-//TODO: Update Volunteer
 
 
 //Delete volunteer
 //TODO: Add query validation
 volunteerRoute.delete('/:id', async (req, res) => {
+  res.send("hiii")
   const id = parseInt(req.params.id)
   
   try {
@@ -47,7 +78,7 @@ volunteerRoute.delete('/:id', async (req, res) => {
     })
     res.sendStatus(203)
   }
-
+  
   catch(e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
       res.status(404).send({message: 'user not found'})
