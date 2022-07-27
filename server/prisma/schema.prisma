@@ -28,14 +28,14 @@ model Profile {
   address String
   homePhoneNumber String?
   workPhoneNumber String?
-  cellPhoneNumber String
+  cellPhoneNumber String?
   email String
   education String?
   currentLicenses String?
   driversLicenseOnFile Boolean
   socialSecurityOnFile Boolean
   approvalStatus String
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int    @unique
   emergencyInfo EmergencyContactInfo?
   availability Availability?
@@ -44,12 +44,12 @@ model Profile {
 
 model Availability {
   volunteerId Int @id
-  volunteer Profile @relation(fields: [volunteerId], references: [userId])
+  volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
 }
 
 model VolunteerPrefers {
 
-  volunteer Profile @relation(fields: [volunteerId], references: [userId])
+  volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
   center Center @relation(fields: [centerName], references: [name])
   volunteerId Int @unique
   centerName String @unique
@@ -69,5 +69,5 @@ model EmergencyContactInfo {
   contactEmail String?
   contactAddress String?
   userId Int @unique
-  profile Profile @relation(fields: [userId], references: [userId])
+  profile Profile @relation(fields: [userId], references: [userId], onDelete: Cascade)
 }
