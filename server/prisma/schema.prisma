@@ -50,15 +50,16 @@ model Availability {
 model VolunteerPrefers {
 
   volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
-  center Center @relation(fields: [centerName], references: [name])
+  center Center @relation(fields: [centerId], references: [id])
   volunteerId Int @unique
-  centerName String @unique
+  centerId Int @unique
 }
 
 model Center {
-  name String @id
-  volunteerId Int @unique
+  id Int @id @default(autoincrement())
+  name String 
   preference VolunteerPrefers?
+  opportunity Opportunity?
 
 }
 
@@ -70,4 +71,14 @@ model EmergencyContactInfo {
   contactAddress String?
   userId Int @unique
   profile Profile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model Opportunity {
+  id Int @id @default(autoincrement())
+  name String
+  startTime String //change data type later
+  endTime String //change data type later
+  center Center @relation(fields: [location], references: [id])
+  location Int @unique
+  description String
 }

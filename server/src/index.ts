@@ -1,12 +1,13 @@
 import express from 'express';
 import volunteerRoute from './routes/volunteer';
-
-
+import opportunitiesRoute from './routes/opportunities'
+import { Prisma } from '@prisma/client';
+import prisma from './prisma-init'
 const app = express()
-
 
 app.use(express.json())
 app.use('/Volunteers', volunteerRoute)
+app.use('/Opportunities', opportunitiesRoute)
 
 const port = 8080
 

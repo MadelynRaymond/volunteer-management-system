@@ -1,6 +1,6 @@
-import { Prisma } from '@prisma/client'
 import express from 'express'
 import prisma from '../prisma-init'
+import { Prisma } from '@prisma/client'
 
 const volunteerRoute = express.Router()
 
@@ -70,7 +70,7 @@ volunteerRoute.delete('/:id', async (req, res) => {
   
   catch(e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
-      res.status(404).send({message: 'user not found'})
+      res.status(404).send({message: 'User not found'})
     }
     res.sendStatus(500)
   }
