@@ -78,7 +78,8 @@ model Opportunity {
   name String
   startTime String //change data type later
   endTime String //change data type later
-  center Center @relation(fields: [location], references: [id])
-  location Int @unique
+  center Center @relation(fields: [centerId], references: [id])
+  centerId Int @unique
+  location String
   description String
 }

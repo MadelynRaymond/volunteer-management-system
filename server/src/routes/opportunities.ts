@@ -6,20 +6,21 @@ const opportunitiesRoute = express.Router()
 
 
 opportunitiesRoute.post('/', async (req, res) => {
-    const { name, startTime, endTime, center, location, description } = req.body
+    const { name, startTime, endTime, centerId, location, description } = req.body
 
     const opportunity = await prisma.opportunity.create({
         data: {
             name,
             startTime,
             endTime,
-            center,
+            centerId,
             location,
             description
         }
     })
     res.status(201).send(opportunity)
 })
+
 
 
 export default opportunitiesRoute
