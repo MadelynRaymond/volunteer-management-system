@@ -46,7 +46,6 @@ volunteerRoute.post('/', async (req, res) => {
               }
             }
           },
-         
       }
   })
   res.status(201).send(volunteer)
@@ -73,7 +72,6 @@ volunteerRoute.delete('/:id', async (req, res) => {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
       res.status(404).send({message: 'user not found'})
     }
-    console.log(e)
     res.sendStatus(500)
   }
 
