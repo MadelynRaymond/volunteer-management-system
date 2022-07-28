@@ -38,12 +38,18 @@ const MultiSelectOption: React.FC<{
   );
 };
 
-export default function MultiSelect({ options }: { options: string[] }) {
+type MultiSelectProps = {
+  options: string[];
+  placeholder?: string;
+};
 
+export default function MultiSelect({
+  placeholder,
+  options,
+}: MultiSelectProps) {
   const [show, setShow] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>([]);
   const [filteredOptions, setFilteredOptions] = React.useState(options);
-
 
   const handleClick = (clickedTag: string) => {
     setSelected(selected.filter((s) => s !== clickedTag));
@@ -56,7 +62,7 @@ export default function MultiSelect({ options }: { options: string[] }) {
   };
 
   return (
-    <Stack mt={'0.5rem'} spacing="0.5rem">
+    <Stack mt={"0.5rem"} spacing="0.5rem">
       <Box>
         <Wrap>
           {selected.map((s) => (
@@ -67,7 +73,7 @@ export default function MultiSelect({ options }: { options: string[] }) {
       <Input
         onBlur={() => setShow(false)}
         onFocus={() => setShow(true)}
-        placeholder="choose centers"
+        placeholder={placeholder ? placeholder : ""}
         type="text"
       />
       <Box

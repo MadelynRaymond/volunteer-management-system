@@ -6,8 +6,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BaseTable from "./components/BaseTable";
 
-
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
     <BrowserRouter>
