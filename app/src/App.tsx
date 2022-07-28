@@ -23,6 +23,7 @@ import {
   Select,
   Stack,
 } from "@chakra-ui/react";
+import BaseTable from "./components/BaseTable";
 
 export default function App() {
   return (
