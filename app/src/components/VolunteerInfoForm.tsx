@@ -18,6 +18,8 @@ export default function VolunteerInfoForm() {
     getCenters()
 
   }, [])
+
+  
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
         <Box w="800px">
@@ -46,7 +48,7 @@ export default function VolunteerInfoForm() {
                     <FormLabel>Preferred Center(s):</FormLabel>
                     {
                         centers && <MultiSelect
-                        placeholder="Select Availability"
+                        placeholder="Select Center(s)"
                         options={centers.map((center) => ({id: center.id, value: center.name}))}
                     />
                     }

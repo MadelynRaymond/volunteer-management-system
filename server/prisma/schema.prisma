@@ -59,7 +59,7 @@ model Center {
   id Int @id @default(autoincrement())
   name String 
   preference VolunteerPrefers?
-  opportunity Opportunity?
+  opportunities Opportunity[]
 
 }
 
@@ -79,7 +79,8 @@ model Opportunity {
   startTime String //change data type later
   endTime String //change data type later
   center Center @relation(fields: [centerId], references: [id])
-  centerId Int @unique
+  centerId Int
   location String
   description String
+  
 }
