@@ -5,8 +5,7 @@ import MultiSelect from './MultiSelect';
 
 export default function PersonalInfoForm() {
   return (
-    <div>
-        <Flex w="100vw" mt="2rem" justifyContent="center">
+    <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="700px">
         <Stack spacing='1.25rem'>
           <Flex gap='5'>
@@ -48,39 +47,13 @@ export default function PersonalInfoForm() {
               <Input type='password' />
             </Box>
           </Flex>
-          <Flex gap='5'>
-            <Box w='100%'>
-              <FormLabel>Preferred Center(s):</FormLabel>
-              <MultiSelect
-                placeholder="Select preferred centers"
-                options={[
-                  "Jacksonville Women's Center",
-                  "Humane Society Rowder",
-                  "The Place",
-                ]}
-              />
-            </Box>
-            <Box w="100%">
-              <FormLabel>Availability Time(s):</FormLabel>
-              <MultiSelect
-                  placeholder="Select availability"
-                  options={[
-                    "Jacksonville Women's Center",
-                    "Humane Society Rowder",
-                    "The Place",
-                  ]}
-                />
-            </Box>
-          </Flex>
 
-          <FormLabel>Additional Information:</FormLabel>
-          <Stack border='1px solid lightgray' borderRadius='0.25rem' p={2} spacing={5} direction='row'>
-            <Checkbox>License on File</Checkbox>
-            <Checkbox>SSN on File</Checkbox>
-          </Stack>
+          <FormLabel>Address</FormLabel>
+          <Input type='text' />
+
         </Stack>
       </Box>
     </Flex>
-    </div>
+
   )
 }
