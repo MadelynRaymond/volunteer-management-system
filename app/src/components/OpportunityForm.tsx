@@ -1,5 +1,7 @@
-import { Box, Flex, FormLabel, Input, Select, Stack, Textarea } from '@chakra-ui/react'
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
+import { Box, Button, Flex, FormLabel, Input, Select, Stack, Textarea } from '@chakra-ui/react'
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import MultiSelect from './MultiSelect'
 
 export default function OpportunityForm() {
@@ -61,8 +63,16 @@ export default function OpportunityForm() {
             <Input type="text" placeholder="117 W. Duval St., Suite 210, Jacksonville, FL 32202"/>
             <FormLabel>Description:</FormLabel>
             <Textarea placeholder='Please give a brief description of the opportunity for prospective volunteers.' />
-              
+          
+            <Flex gap='5' justifyContent='center'>
+                <NavLink to="/"><Button leftIcon={<CloseIcon />} colorScheme='purple' variant='solid'>
+                Cancel
+                </Button></NavLink>
                 
+                <NavLink to="/"><Button colorScheme='pink' leftIcon={<CheckIcon />}  variant='solid'>
+                Submit
+                </Button></NavLink>
+            </Flex>
         </Stack>
       </Box>
     </Flex>
