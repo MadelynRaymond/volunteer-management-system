@@ -8,6 +8,7 @@ import BaseTable from "./components/BaseTable";
 import PersonalInfoForm from "./components/PersonalInfoForm";
 import VolunteerInfoForm from "./components/VolunteerInfoForm";
 import EmergencyContactForm from "./components/EmergencyContactForm";
+import NewVolunteer from "./views/NewVolunteer";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
@@ -15,9 +16,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/TablePreview" element={<BaseTable />} />
-        <Route path="/CreateVolunteer/PersonalInfo" element={<PersonalInfoForm />} />
-        <Route path="/CreateVolunteer/VolunteerInfo" element={<VolunteerInfoForm />} />
-        <Route path="/CreateVolunteer/EmergencyContactInfo" element={<EmergencyContactForm  />} />
+        <Route path="/CreateVolunteer" element={<NewVolunteer/>}>
+          <Route path="PersonalInfo" element={<PersonalInfoForm/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   </ChakraProvider>

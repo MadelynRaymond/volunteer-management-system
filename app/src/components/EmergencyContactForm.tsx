@@ -7,6 +7,20 @@ export default function EmergencyContactForm() {
         <Box w="700px">
             <FormLabel>Emergency Contact Name</FormLabel>
             <Input type="text"></Input>
+
+            <FormLabel>Emergency Contact Email</FormLabel>
+            <Input type="email"></Input>
+
+            <FormLabel>Emergency Contact Address</FormLabel>
+            <Input type="text"></Input>
+
+            <FormLabel>Home Phone Number</FormLabel>
+            <Input type="text"></Input>
+
+            <FormLabel>Work Phone Number</FormLabel>
+            <Input type="text"></Input>
+
+
         </Box>
     </Flex>
   )
