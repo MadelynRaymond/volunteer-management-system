@@ -1,21 +1,11 @@
 import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 
 import MultiSelect from "./components/MultiSelect";
+import FormPage from "./views/FormPage";
 
 export default function App() {
   return (
-    <Flex w="100vw" mt="2rem" justifyContent="center">
-      <Box w="500px">
-        <MultiSelect
-          placeholder="Select preferred centers"
-          options={[
-            "Jacksonville Women's Center",
-            "Humane Society Rowder",
-            "The Place",
-          ]}
-        />
-      </Box>
-    </Flex>
+    <FormPage />
   );
 }

@@ -62,7 +62,7 @@ export default function MultiSelect({
   };
 
   return (
-    <Stack mt={"0.5rem"} spacing="0.5rem">
+    <Stack spacing="0.5rem">
       <Box>
         <Wrap>
           {selected.map((s) => (
