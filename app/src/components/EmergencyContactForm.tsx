@@ -1,5 +1,7 @@
-import { Box, Flex, FormLabel, Input } from '@chakra-ui/react'
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import { Box, Button, Flex, FormLabel, Input, Progress } from '@chakra-ui/react'
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 export default function EmergencyContactForm() {
   return (
@@ -20,7 +22,16 @@ export default function EmergencyContactForm() {
             <FormLabel>Work Phone Number</FormLabel>
             <Input type="text"></Input>
 
-
+            <Progress hasStripe value={66} size='lg' colorScheme='purple' />
+            
+            <Flex gap='5' justifyContent='center'>
+                <NavLink to="/CreateVolunteer/2"><Button leftIcon={<ArrowBackIcon />} colorScheme='purple' variant='solid'>
+                Previous
+                </Button></NavLink>
+                <Button colorScheme='pink' variant='solid'>
+                Submit
+                </Button>
+            </Flex>
         </Box>
     </Flex>
   )

@@ -6,6 +6,8 @@ import FormPage from "./views/FormPage";
 
 export default function App() {
   return (
-    <FormPage />
+    <div>
+      
+    </div>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react'
-import { Box, Text, Checkbox, Flex, FormControl, FormLabel, Input, Progress, Stack } from "@chakra-ui/react";
+import { Box, Text, Checkbox, Flex, FormControl, FormLabel, Input, Progress, Stack, Button } from "@chakra-ui/react";
 import MultiSelect from './MultiSelect';
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
+import { NavLink } from 'react-router-dom';
 
 
 export default function PersonalInfoForm() {
@@ -21,14 +23,17 @@ export default function PersonalInfoForm() {
             </Box>
           </Flex>
 
-            <FormLabel>Username</FormLabel>
-            <Input type='text' />
+        <FormLabel>Username</FormLabel>
+        <Input type='text' />
   
-            <FormLabel>Password</FormLabel>
-            <Input type='password' />
+        <FormLabel>Password</FormLabel>
+        <Input type='password' />
 
           <FormLabel>Email Address</FormLabel>
           <Input type='email' />
+
+          <FormLabel>Address</FormLabel>
+          <Input type='text' />
 
           <Flex gap='5'>
             <Box w='100%'>
@@ -44,10 +49,17 @@ export default function PersonalInfoForm() {
               <Input type='text' />
             </Box>
           </Flex>
-
-          <FormLabel>Address</FormLabel>
-          <Input type='text' />
-          <Progress hasStripe value={33} />
+          <Progress hasStripe value={33} size='lg' colorScheme='purple' />
+            
+            <Flex gap='5' justifyContent='center'>
+                <Button leftIcon={<ArrowBackIcon />} disabled={true} colorScheme='purple' variant='solid'>
+                Previous
+                </Button>
+                <NavLink to="/CreateVolunteer/2"><Button rightIcon={<ArrowForwardIcon />} colorScheme='purple' variant='solid'>
+                Next
+                </Button></NavLink>
+            </Flex>
+ 
         </Stack>
       </Box>
     </Flex>

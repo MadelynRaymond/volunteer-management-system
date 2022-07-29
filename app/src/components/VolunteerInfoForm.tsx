@@ -1,5 +1,7 @@
-import { Box, Checkbox, Flex, FormLabel, Select, Stack, Textarea } from '@chakra-ui/react'
+import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import { Box, Button, Checkbox, Flex, FormLabel, Link, Progress, Select, Stack, Textarea } from '@chakra-ui/react'
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import MultiSelect from './MultiSelect'
 
 export default function VolunteerInfoForm() {
@@ -11,7 +13,7 @@ export default function VolunteerInfoForm() {
                     <Box w='100%'>
                     <FormLabel>Availability:</FormLabel>
                     <MultiSelect
-                        placeholder="Select Preferred Centers"
+                        placeholder="Select Available Times"
                         options={[
                         "Weekdays: 8AM-10AM",
                         "Weekdays: 10AM-12PM",
@@ -94,6 +96,17 @@ export default function VolunteerInfoForm() {
                     <Checkbox>SSN on File</Checkbox>
                 </Stack>
             </Stack>
+            <Progress hasStripe value={66} size='lg' colorScheme='purple' />
+            
+            <Flex gap='5' justifyContent='center'>
+                <NavLink to="/CreateVolunteer/1"><Button leftIcon={<ArrowBackIcon />} colorScheme='purple' variant='solid'>
+                Previous
+                </Button>
+                </NavLink>
+                <NavLink to="/CreateVolunteer/3"><Button rightIcon={<ArrowForwardIcon />} colorScheme='purple' variant='solid'>
+                Next
+                </Button></NavLink>
+            </Flex>
         </Box>
     </Flex>
   )
