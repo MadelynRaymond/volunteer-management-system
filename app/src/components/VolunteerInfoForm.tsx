@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import { Box, Button, Checkbox, Flex, FormLabel, Link, Progress, Select, Stack, Textarea } from '@chakra-ui/react'
 import React from 'react'
@@ -5,60 +6,69 @@ import { NavLink } from 'react-router-dom'
 import MultiSelect from './MultiSelect'
 
 export default function VolunteerInfoForm() {
+
+  const [centers, setCenters] = React.useState<Array<{id: number, name: string}>>()
+
+  const getCenters = async () => {
+    const {data} = await axios.get<{id: number, name: string}[]>('http://localhost:8080/Centers')
+    setCenters(data)
+  }
+  React.useEffect(() => {
+    getCenters()
+
+  }, [])
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
         <Box w="700px">
             <Stack spacing='1.25rem'>
-                <Flex gap='5'>
+                <Flex gap='5' alignItems={'end'}>
                     <Box w='100%'>
                     <FormLabel>Availability:</FormLabel>
                     <MultiSelect
                         placeholder="Select Available Times"
                         options={[
-                        "Weekdays: 8AM-10AM",
-                        "Weekdays: 10AM-12PM",
-                        "Weekdays: 12PM-2PM",
-                        "Weekdays: 2PM-4PM",
-                        "Weekdays: 4PM-6PM",
-                        "Weekends: 8AM-10AM",
-                        "Weekends: 10AM-12PM",
-                        "Weekends: 12PM-2PM",
-                        "Weekends: 2PM-4PM",
-                        "Weekends: 4PM-6PM",
+                        {id: 1, value: "Weekdays: 8AM-10AM"},
+                        {id: 2, value: "Weekdays: 10AM-12PM"},
+                        {id: 3, value: "Weekdays: 12PM-2PM"},
+                        {id: 4, value: "Weekdays: 2PM-4PM"},
+                        {id: 5, value: "Weekdays: 4PM-6PM"},
+                        {id: 6, value: "Weekends: 8AM-10AM"},
+                        {id: 7, value: "Weekends: 10AM-12PM"},
+                        {id: 8, value: "Weekends: 12PM-2PM"},
+                        {id: 9, value: "Weekends: 2PM-4PM"},
+                        {id: 10, value: "Weekends: 4PM-6PM"},
                         ]}
                     />
                     </Box>
                     <Box w="100%">
                     <FormLabel>Preferred Center(s):</FormLabel>
-                    <MultiSelect
+                    {
+                        centers && <MultiSelect
                         placeholder="Select Availability"
-                        options={[
-                            "Jacksonville Women's Center",
-                            "Duval Humane Society",
-                            "NE FL Environmental Outlook Center",
-                        ]}
-                        />
+                        options={centers.map((center) => ({id: center.id, value: center.name}))}
+                    />
+                    }
                     </Box>
                 </Flex>
                 <FormLabel>Skills/Interests:</FormLabel>
                 <MultiSelect
                         placeholder="Select Skills/Interests"
                         options={[
-                            "Animal Care",
-                            "Event Planning",
-                            "Technology",
-                            "Working with Children",
-                            "Sports",
-                            "Healthcare",
-                            "Community Development",
-                            "Education",
-                            "Baking",
-                            "Environmental Issues",
-                            "Women's Empowerment",
-                            "Politics",
-                            "Diversity & Equity",
-                            "Agriculture",
-                            "Wildlife Protection"
+                            {id: 1, value: "Animal Care",},
+                            {id: 2, value: "Event Planning"},
+                            {id: 3, value: "Technology"},
+                            {id: 4, value: "Working with Children"},
+                            {id: 5, value: "Sports"},
+                            {id: 6, value: "Healthcare"},
+                            {id: 7, value: "Community Development"},
+                            {id: 8, value: "Education"},
+                            {id: 9, value: "Baking"},
+                            {id: 10, value: "Environmental Issues"},
+                            {id: 11, value: "Women's Empowerment"},
+                            {id: 12, value: "Politics"},
+                            {id: 13, value: "Diversity & Equity"},
+                            {id: 14, value: "Agriculture"},
+                            {id: 15, value: "Wildlife Protection"}
                         ]}
                         />
                 <FormLabel>Current Licenses:</FormLabel>

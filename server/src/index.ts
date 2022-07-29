@@ -1,9 +1,14 @@
 import express from 'express';
+import cors from 'cors'
 import volunteerRoute from './routes/volunteer';
 import opportunitiesRoute from './routes/opportunities'
 import prisma from './prisma-init'
 const app = express()
 
+app.use(cors({
+    credentials: true,
+    origin: '*'
+}))
 app.use(express.json())
 app.use('/Volunteers', volunteerRoute)
 app.use('/Opportunities', opportunitiesRoute)
@@ -14,6 +19,23 @@ app.get('/', (req, res) => {
     res.status(200).send({message: 'hello, world'})
 })
 
+app.get('/Centers', async (req, res) => {
+
+    const centers = await prisma.center.findMany()
+    res.status(200).send(centers)
+})
+
+app.post('/Centers', async (req, res) => {
+    const {name} = req.body
+
+    const echo = await prisma.center.create({
+        data: {
+            name
+        }
+    })
+
+    res.status(201).send(echo)
+})
 
 app.listen(port, () => {
     console.log(`Listening on ${port}`)
