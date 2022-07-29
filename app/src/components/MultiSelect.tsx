@@ -47,16 +47,23 @@ const MultiSelectOption: React.FC<{
 
 type MultiSelectProps = {
   options: Option[];
+  onSelect?: (newState: Option[]) => void
   placeholder?: string;
 };
 
 export default function MultiSelect({
   placeholder,
   options,
+  onSelect
 }: MultiSelectProps) {
   const [show, setShow] = React.useState(false);
   const [selected, setSelected] = React.useState<Option[]>([]);
   const [filteredOptions, setFilteredOptions] = React.useState(options);
+
+  React.useEffect(() => {
+    onSelect && onSelect(selected)
+  }, [selected])
+
 
   const handleClick = (clickedTag: Option) => {
     setSelected(selected.filter((s) => s.id !== clickedTag.id));
@@ -64,6 +71,7 @@ export default function MultiSelect({
   };
 
   const handleSelect = (selectedOption: Option) => {
+    
     setSelected([...selected, selectedOption]);
     setFilteredOptions(filteredOptions.filter((s) => s.id !== selectedOption.id));
   };

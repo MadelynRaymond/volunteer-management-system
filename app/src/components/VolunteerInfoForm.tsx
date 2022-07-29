@@ -8,6 +8,7 @@ import MultiSelect from './MultiSelect'
 export default function VolunteerInfoForm() {
 
   const [centers, setCenters] = React.useState<Array<{id: number, name: string}>>()
+  const [availability, setAvailability] = React.useState<{id: number, value: string}[]>([])
 
   const getCenters = async () => {
     const {data} = await axios.get<{id: number, name: string}[]>('http://localhost:8080/Centers')
@@ -19,12 +20,13 @@ export default function VolunteerInfoForm() {
   }, [])
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
-        <Box w="700px">
+        <Box w="800px">
             <Stack spacing='1.25rem'>
                 <Flex gap='5' alignItems={'end'}>
                     <Box w='100%'>
                     <FormLabel>Availability:</FormLabel>
                     <MultiSelect
+                        onSelect={(selected) => setAvailability(selected)}
                         placeholder="Select Available Times"
                         options={[
                         {id: 1, value: "Weekdays: 8AM-10AM"},
