@@ -54,15 +54,17 @@ type MultiSelectProps = {
   options: Option[];
   onSelect?: (newState: Option[]) => void;
   placeholder?: string;
+  value?: Option[]
 };
 
 export default function MultiSelect({
   placeholder,
+  value,
   options,
   onSelect,
 }: MultiSelectProps) {
   const [show, setShow] = React.useState(false);
-  const [selected, setSelected] = React.useState<Option[]>([]);
+  const [selected, setSelected] = React.useState<Option[]>(value ? value : []);
   const [filteredOptions, setFilteredOptions] = React.useState(options);
 
   React.useEffect(() => {

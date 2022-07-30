@@ -1,4 +1,5 @@
 import React from "react";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Table,
   Thead,
@@ -10,6 +11,8 @@ import {
   TableContainer,
   Wrap,
   Tag,
+  Flex,
+  Icon,
 } from "@chakra-ui/react";
 
 {
@@ -32,6 +35,7 @@ export default function BaseTable() {
             <Th>Address</Th>
             <Th>Availability</Th>
             <Th>Approval Status</Th>
+            <Th>Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -49,6 +53,12 @@ export default function BaseTable() {
               <Tag variant={"solid"} colorScheme={"green"}>
                 Approved
               </Tag>
+            </Td>
+            <Td>
+              <Flex justifyContent={'space-between'}>
+                <Icon w={6} h={6} as={EditIcon}/>
+                <Icon w={6} h={6} as={DeleteIcon}/>
+              </Flex>
             </Td>
           </Tr>
 
