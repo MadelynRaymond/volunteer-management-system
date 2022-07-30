@@ -82,14 +82,14 @@ export default function VolunteerInfoForm() {
                     <FormLabel>Educational Background:</FormLabel>
                         <Stack spacing={3}>
                             <Select variant='filled' placeholder='Select Highest Level Completed' >
-                                <option value='option1'>No Response</option>
-                                <option value='option1'>Less than High School Diploma</option>
-                                <option value='option1'>High School Diploma</option>
-                                <option value='option1'>Some College</option>
-                                <option value='option1'>Associate's Degree</option>
-                                <option value='option1'>Bachelor's Degree</option>
-                                <option value='option1'>Master's Degree</option>
-                                <option value='option1'>Doctorate or Professional Degree</option>
+                                <option value='No Response'>No Response</option>
+                                <option value='Less than High School Diploma'>Less than High School Diploma</option>
+                                <option value='High School Diploma'>High School Diploma</option>
+                                <option value='Some College'>Some College</option>
+                                <option value="Associate'\s Degree">Associate's Degree</option>
+                                <option value="Bachelor\'s Degree">Bachelor's Degree</option>
+                                <option value="Master'\s Degree">Master's Degree</option>
+                                <option value='Doctorate or Professional Degree'>Doctorate or Professional Degree</option>
                             </Select>
                         </Stack>
                     </Box>
@@ -103,7 +103,7 @@ export default function VolunteerInfoForm() {
             <Progress hasStripe value={66} size='lg' colorScheme='purple' />
             
             <Flex gap='5' justifyContent='center'>
-                <NavLink to="/CreateVolunteer/1"><Button leftIcon={<ArrowBackIcon />} colorScheme='purple' variant='solid'>
+                <NavLink state={personalInfo.current} to="/CreateVolunteer/1"><Button leftIcon={<ArrowBackIcon />} colorScheme='purple' variant='solid'>
                 Previous
                 </Button>
                 </NavLink>
