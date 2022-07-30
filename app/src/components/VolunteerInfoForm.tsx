@@ -19,6 +19,7 @@ import {
   Stack,
   Textarea,
 } from "@chakra-ui/react";
+import { EmergencyInfo } from "./EmergencyContactForm";
 
 export type VolunteerInfo = {
   availability: {id: number, value: string}[],
@@ -148,7 +149,7 @@ export default function VolunteerInfoForm() {
             <FormControl isInvalid={hasErrors(volunteerInfo.approvalStatus)} isRequired>
               <FormLabel>Approval Status:</FormLabel>
               <Stack spacing={3}>
-                <Select variant="filled" placeholder="Select Current Status">
+                <Select onChange={(e) => setVolunteerInfo({...volunteerInfo, approvalStatus: e.target.value})} value={volunteerInfo.approvalStatus} variant="filled" placeholder="Select Current Status">
                   <option value="option1">Pending Approval</option>
                   <option value="option1">Approved</option>
                   <option value="option1">Not Approved</option>
@@ -160,6 +161,8 @@ export default function VolunteerInfoForm() {
               <FormLabel>Educational Background:</FormLabel>
               <Stack spacing={3}>
                 <Select
+                  value={volunteerInfo.education}
+                  onChange={(e) => setVolunteerInfo({...volunteerInfo, education: e.target.value})}
                   variant="filled"
                   placeholder="Select Highest Level Completed"
                 >
@@ -209,7 +212,7 @@ export default function VolunteerInfoForm() {
               Previous
             </Button>
           </NavLink>
-          <NavLink state={{personalInfo, volunteerInfo}} onClick={(e) => submit(e)} to="/CreateVolunteer/3">
+          <NavLink state={{personalInfo: personalInfo.current, volunteerInfo}} onClick={(e) => submit(e)} to="/CreateVolunteer/3">
             <Button
               rightIcon={<ArrowForwardIcon />}
               colorScheme="purple"
