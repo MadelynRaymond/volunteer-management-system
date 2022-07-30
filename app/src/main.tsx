@@ -18,12 +18,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/" element={<App />} />
         <Route path="/TablePreview" element={<BaseTable />} />
         <Route path="/CreateOpportunity" element={<OpportunityForm />} />
-        <Route path="/CreateVolunteer" element={<NewVolunteer/>}>
-          <Route path="1" element={<PersonalInfoForm/>}/>
-          <Route path="2" element={<VolunteerInfoForm/>}/>
-          <Route path="3" element={<EmergencyContactForm/>}/>
-
-
+        <Route path="/CreateVolunteer" element={<NewVolunteer />}>
+          <Route path="1" element={<PersonalInfoForm />} />
+          <Route path="2" element={<VolunteerInfoForm />} />
+          <Route path="3" element={<EmergencyContactForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

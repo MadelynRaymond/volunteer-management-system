@@ -1,10 +1,10 @@
-import React from 'react'
-import PersonalInfoForm from '../components/PersonalInfoForm'
+import React from "react";
+import PersonalInfoForm from "../components/PersonalInfoForm";
 
 export default function FormPage() {
   return (
     <div>
-        <PersonalInfoForm />
+      <PersonalInfoForm />
     </div>
-  )
+  );
 }
