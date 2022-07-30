@@ -11,7 +11,6 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
-import MultiSelect from "./MultiSelect";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { NavLink, useLocation } from "react-router-dom";
 
