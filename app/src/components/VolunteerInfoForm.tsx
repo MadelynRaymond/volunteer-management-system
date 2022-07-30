@@ -1,12 +1,17 @@
+import React from 'react'
 import axios from 'axios'
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import { Box, Button, Checkbox, Flex, FormLabel, Link, Progress, Select, Stack, Textarea } from '@chakra-ui/react'
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import MultiSelect from './MultiSelect'
+import { PersonalInfo } from './PersonalInfoForm'
+import { availabilityOptions } from '../assets/availability'
+import { interests } from '../assets/interests'
 
 export default function VolunteerInfoForm() {
 
+  const {state} = useLocation()
+  const personalInfo = React.useRef<PersonalInfo>()
   const [centers, setCenters] = React.useState<Array<{id: number, name: string}>>()
   const [availability, setAvailability] = React.useState<{id: number, value: string}[]>([])
 
@@ -14,15 +19,27 @@ export default function VolunteerInfoForm() {
     const {data} = await axios.get<{id: number, name: string}[]>('http://localhost:8080/Centers')
     setCenters(data)
   }
+
+  const hasPersonalInfo = (state: unknown): state is PersonalInfo => {
+    //TODO: construct better typeguard
+    const isObject = (state: unknown): state is Object => typeof state === 'object'
+    if(isObject(state)) return true
+    return false
+  }
   React.useEffect(() => {
     getCenters()
 
+    if(hasPersonalInfo(state)){
+        personalInfo.current = state
+    }
+    
   }, [])
 
   
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
         <Box w="800px">
+            <Box>{personalInfo.current && personalInfo.current.firstName}</Box>
             <Stack spacing='1.25rem'>
                 <Flex gap='5' alignItems={'end'}>
                     <Box w='100%'>
@@ -30,18 +47,7 @@ export default function VolunteerInfoForm() {
                     <MultiSelect
                         onSelect={(selected) => setAvailability(selected)}
                         placeholder="Select Available Times"
-                        options={[
-                        {id: 1, value: "Weekdays: 8AM-10AM"},
-                        {id: 2, value: "Weekdays: 10AM-12PM"},
-                        {id: 3, value: "Weekdays: 12PM-2PM"},
-                        {id: 4, value: "Weekdays: 2PM-4PM"},
-                        {id: 5, value: "Weekdays: 4PM-6PM"},
-                        {id: 6, value: "Weekends: 8AM-10AM"},
-                        {id: 7, value: "Weekends: 10AM-12PM"},
-                        {id: 8, value: "Weekends: 12PM-2PM"},
-                        {id: 9, value: "Weekends: 2PM-4PM"},
-                        {id: 10, value: "Weekends: 4PM-6PM"},
-                        ]}
+                        options={availabilityOptions}
                     />
                     </Box>
                     <Box w="100%">
@@ -57,23 +63,7 @@ export default function VolunteerInfoForm() {
                 <FormLabel>Skills/Interests:</FormLabel>
                 <MultiSelect
                         placeholder="Select Skills/Interests"
-                        options={[
-                            {id: 1, value: "Animal Care",},
-                            {id: 2, value: "Event Planning"},
-                            {id: 3, value: "Technology"},
-                            {id: 4, value: "Working with Children"},
-                            {id: 5, value: "Sports"},
-                            {id: 6, value: "Healthcare"},
-                            {id: 7, value: "Community Development"},
-                            {id: 8, value: "Education"},
-                            {id: 9, value: "Baking"},
-                            {id: 10, value: "Environmental Issues"},
-                            {id: 11, value: "Women's Empowerment"},
-                            {id: 12, value: "Politics"},
-                            {id: 13, value: "Diversity & Equity"},
-                            {id: 14, value: "Agriculture"},
-                            {id: 15, value: "Wildlife Protection"}
-                        ]}
+                        options={interests}
                         />
                 <FormLabel>Current Licenses:</FormLabel>
                 <Textarea placeholder='List any certifications that the volunteer currently holds.' />
