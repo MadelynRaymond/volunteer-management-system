@@ -10,13 +10,15 @@ import VolunteerInfoForm from "./components/VolunteerInfoForm";
 import EmergencyContactForm from "./components/EmergencyContactForm";
 import NewVolunteer from "./views/NewVolunteer";
 import OpportunityForm from "./components/OpportunityForm";
+import AdminPage from "./components/AdminPage";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<AdminPage />} />
         <Route path="/TablePreview" element={<BaseTable />} />
+        
         <Route path="/CreateOpportunity" element={<OpportunityForm />} />
         <Route path="/CreateVolunteer" element={<NewVolunteer />}>
           <Route path="1" element={<PersonalInfoForm />} />
