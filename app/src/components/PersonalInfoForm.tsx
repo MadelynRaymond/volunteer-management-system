@@ -28,6 +28,9 @@ export type PersonalInfo = {
 };
 
 export default function PersonalInfoForm() {
+
+  const [submitted, setSubmitted] = React.useState(false)
+
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({
     firstName: "",
     lastName: "",
@@ -50,6 +53,30 @@ export default function PersonalInfoForm() {
     return false;
   };
 
+  const hasError = (field: string) => field === '' && submitted
+
+  const submit = (e: any) => {
+    setSubmitted(true)
+    //check if all required fields are populated
+    const hasErrors = Object.keys(personalInfo).some((key) => {
+      if(key === 'homePhoneNumber' || key === 'workPhoneNumber'){
+        return false
+      }
+      if(personalInfo[key as keyof PersonalInfo] === ''){
+        return true
+      }
+
+      return false
+    })
+
+    if(hasErrors) e.preventDefault()
+    const timeout = setTimeout(() => {
+      setSubmitted(false)
+      clearInterval(timeout)
+    }, 5000)
+
+  }
+
   React.useEffect(() => {
     if (state && hasPersonalInfo(state)) {
       setPersonalInfo({ ...state });
@@ -63,7 +90,7 @@ export default function PersonalInfoForm() {
         <Stack spacing="1.25rem">
           <Flex gap="5">
             <Box w="100%">
-              <FormControl isRequired>
+              <FormControl isInvalid={hasError(personalInfo.firstName)} isRequired>
                 <FormLabel>First Name</FormLabel>
                 <Input
                   name="firstName"
@@ -79,7 +106,7 @@ export default function PersonalInfoForm() {
               </FormControl>
             </Box>
             <Box w="100%">
-              <FormControl isRequired>
+              <FormControl isInvalid={hasError(personalInfo.lastName)} isRequired>
                 <FormLabel>Last Name</FormLabel>
                 <Input
                   value={personalInfo.lastName}
@@ -95,7 +122,7 @@ export default function PersonalInfoForm() {
             </Box>
           </Flex>
 
-          <FormControl isRequired>
+          <FormControl isInvalid={hasError(personalInfo.username)} isRequired>
             <FormLabel>Username</FormLabel>
             <Input
               value={personalInfo.username}
@@ -106,7 +133,7 @@ export default function PersonalInfoForm() {
             />
           </FormControl>
 
-          <FormControl isRequired>
+          <FormControl isInvalid={hasError(personalInfo.password)} isRequired>
             <FormLabel>Password</FormLabel>
             <Input
               value={personalInfo.password}
@@ -117,7 +144,7 @@ export default function PersonalInfoForm() {
             />
           </FormControl>
 
-          <FormControl isRequired>
+          <FormControl isInvalid={hasError(personalInfo.email)} isRequired>
             <FormLabel>Email Address</FormLabel>
             <Input
               value={personalInfo.email}
@@ -128,7 +155,7 @@ export default function PersonalInfoForm() {
             />
           </FormControl>
 
-          <FormControl isRequired>
+          <FormControl isInvalid={hasError(personalInfo.address)} isRequired>
             <FormLabel>Address</FormLabel>
             <Input
               value={personalInfo.address}
@@ -156,7 +183,7 @@ export default function PersonalInfoForm() {
               </FormControl>
             </Box>
             <Box w="100%">
-              <FormControl isRequired>
+              <FormControl isInvalid={hasError(personalInfo.cellPhoneNumber)} isRequired>
                 <FormLabel>Cell Phone Number</FormLabel>
                 <Input
                   value={personalInfo.cellPhoneNumber}
@@ -197,7 +224,7 @@ export default function PersonalInfoForm() {
             >
               Previous
             </Button>
-            <NavLink state={personalInfo} to="/CreateVolunteer/2">
+            <NavLink onClick={(e) => submit(e)} state={personalInfo} to="/CreateVolunteer/2">
               <Button
                 rightIcon={<ArrowForwardIcon />}
                 colorScheme="purple"
