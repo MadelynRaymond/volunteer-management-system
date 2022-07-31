@@ -82,9 +82,10 @@ export default function VolunteerInfoForm() {
                     <FormLabel>Approval Status:</FormLabel>
                     <Stack spacing={3}>
                             <Select variant='filled' placeholder='Select Current Status' >
-                                <option value='option1'>Pending Approval</option>
-                                <option value='option1'>Approved</option>
-                                <option value='option1'>Not Approved</option>
+                                <option value='PENDING APPROVAL'>Pending Approval</option>
+                                <option value='APPROVED'>Approved</option>
+                                <option value='NOT APPROVED'>Not Approved</option>
+                                <option value='INACTIVE'>Inactive</option>
                             </Select>
                         </Stack>
                     </Box>
