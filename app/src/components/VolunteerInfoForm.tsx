@@ -153,6 +153,7 @@ export default function VolunteerInfoForm() {
                   <option value="option1">Pending Approval</option>
                   <option value="option1">Approved</option>
                   <option value="option1">Not Approved</option>
+                  <option value="option1">Inactive</option>
                 </Select>
               </Stack>
             </FormControl>
