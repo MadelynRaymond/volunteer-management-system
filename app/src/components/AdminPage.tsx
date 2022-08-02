@@ -33,8 +33,8 @@ export default function AdminPage() {
                             <MenuItem>Search Opportunities</MenuItem>
                             <MenuItem>View Volunteer Opportunity Matches</MenuItem>
                             <MenuItem>Edit Opportunities</MenuItem>
-                            <MenuItem>Add New Opportunity</MenuItem>
                             <NavLink to='/CreateOpportunity'><MenuItem>Add New Opportunity</MenuItem></NavLink>
+                            <MenuItem>Delete an Opportunity</MenuItem>
                         </MenuList>
                     </Menu>
             </Flex>
