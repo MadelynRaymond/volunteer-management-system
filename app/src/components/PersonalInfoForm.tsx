@@ -42,15 +42,6 @@ export default function PersonalInfoForm() {
     workPhoneNumber: "",
   });
 
-  const { state } = useLocation();
-
-  const hasPersonalInfo = (state: unknown): state is PersonalInfo => {
-    //TODO: construct better typeguard
-    const isObject = (state: unknown): state is Object =>
-      typeof state === "object";
-    if (isObject(state)) return true;
-    return false;
-  };
 
   const hasError = (field: string) => field === '' && submitted
 
@@ -75,12 +66,6 @@ export default function PersonalInfoForm() {
     }, 5000)
 
   }
-
-  React.useEffect(() => {
-    if (state && hasPersonalInfo(state)) {
-      setPersonalInfo({ ...state });
-    }
-  }, []);
 
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">

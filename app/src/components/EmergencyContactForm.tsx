@@ -43,32 +43,11 @@ export default function EmergencyContactForm() {
     contactWorkNumber: ''
   })
 
-  const hasPreviousInfo = (state: unknown): state is {personalInfo: PersonalInfo, volunteerInfo: VolunteerInfo} => {
-    const isObject = (state: unknown): state is Object =>
-      typeof state === "object";
-    
-    if(isObject(state) && state.hasOwnProperty('personalInfo') && state.hasOwnProperty('volunteerInfo')){
-      return true
-    }
-    return false
-  }
-
   const hasErrors = (field: string) => field === '' && submitted
 
   const submit = () => {
     console.log(volunteer)
   }
-
-  React.useEffect(() => {
-    if(state && hasPreviousInfo(state)){
-      setVolunteer({...volunteer, 
-        personalInfo: state.personalInfo as PersonalInfo, 
-        volunteerInfo: state.volunteerInfo as VolunteerInfo,
-        emergencyInfo: emergencyInfo})
-    }
-  }, [])
-
-  const { state } = useLocation();
 
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
