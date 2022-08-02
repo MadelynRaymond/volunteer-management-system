@@ -57,14 +57,6 @@ export default function VolunteerInfoForm() {
     setCenters(data);
   };
 
-  const hasPersonalInfo = (state: unknown): state is PersonalInfo => {
-    //TODO: construct better typeguard
-    const isObject = (state: unknown): state is Object =>
-      typeof state === "object";
-    if (isObject(state)) return true;
-    return false;
-  };
-
   const hasErrors = (field: unknown[] | string) => {
     if(typeof field === 'string'){
       return field === '' && submitted
@@ -90,14 +82,6 @@ export default function VolunteerInfoForm() {
     }, 5000)
 
   }
-
-  React.useEffect(() => {
-    getCenters();
-
-    if (hasPersonalInfo(state)) {
-      personalInfo.current = state;
-    }
-  }, []);
 
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
