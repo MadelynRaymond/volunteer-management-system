@@ -19,7 +19,6 @@ export type EmergencyInfo = {
   contactAddress: string,
   contactHomeNumber: string,
   contactWorkNumber: string
-
 }
 
 type Volunteer = {
