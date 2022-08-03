@@ -1,5 +1,6 @@
 import {
   Box,
+  filter,
   Input,
   Stack,
   Tag,
@@ -52,42 +53,41 @@ const MultiSelectOption: React.FC<{
 
 type MultiSelectProps = {
   options: Option[];
-  onSelect?: (newState: Option[]) => void;
+  onChange: (newState: Option[]) => void;
   placeholder?: string;
-  value?: Option[]
+  value: Option[]
 };
 
 export default function MultiSelect({
   placeholder,
-  value,
+  value = [],
   options,
-  onSelect,
+  onChange,
 }: MultiSelectProps) {
   const [show, setShow] = React.useState(false);
-  const [selected, setSelected] = React.useState<Option[]>(value ? value : []);
   const [filteredOptions, setFilteredOptions] = React.useState(options);
 
-  React.useEffect(() => {
-    onSelect && onSelect(selected);
-  }, [selected]);
-
   const handleClick = (clickedTag: Option) => {
-    setSelected(selected.filter((s) => s.id !== clickedTag.id));
-    setFilteredOptions([...filteredOptions, clickedTag]);
+    onChange(value.filter(s => s.id !== clickedTag.id))
+    setFilteredOptions([...filteredOptions, clickedTag])
   };
 
   const handleSelect = (selectedOption: Option) => {
-    setSelected([...selected, selectedOption]);
-    setFilteredOptions(
-      filteredOptions.filter((s) => s.id !== selectedOption.id)
-    );
+    onChange([...value, selectedOption])
+    setFilteredOptions(filteredOptions.filter(opt => opt.id !== selectedOption.id))
   };
+
+  React.useEffect(() => {
+    value.length > 0 && setFilteredOptions(options.filter(opt => !value.some(other => opt.id === other.id)))
+  }, [])
+
+
 
   return (
     <Stack spacing="0.5rem">
       <Box>
         <Wrap>
-          {selected.map((s) => (
+          {value.map((s) => (
             <TagWithIcon
               handleClick={handleClick}
               key={s.id}

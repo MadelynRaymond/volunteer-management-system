@@ -92,7 +92,7 @@ export default function VolunteerInfoForm() {
               <FormLabel>Availability:</FormLabel>
               <MultiSelect
                 value={volunteerInfo.availability}
-                onSelect={(selected) => setVolunteerInfo({...volunteerInfo, availability: selected})}
+                onChange={(selected) => setVolunteerInfo({...volunteerInfo, availability: selected})}
                 placeholder="Select Available Times"
                 options={availabilityOptions}
               />
@@ -103,7 +103,7 @@ export default function VolunteerInfoForm() {
               {centers && (
                 <MultiSelect
                   value={volunteerInfo.preferredCenters}
-                  onSelect={(selected) => setVolunteerInfo({...volunteerInfo, preferredCenters: selected})}
+                  onChange={(selected) => setVolunteerInfo({...volunteerInfo, preferredCenters: selected})}
                   placeholder="Select Center(s)"
                   options={centers.map((center) => ({
                     id: center.id,
@@ -118,7 +118,7 @@ export default function VolunteerInfoForm() {
             <FormLabel>Skills/Interests:</FormLabel>
             <MultiSelect
               value={volunteerInfo.skills}
-              onSelect={(selected) => setVolunteerInfo({...volunteerInfo, skills: selected})}
+              onChange={(selected) => setVolunteerInfo({...volunteerInfo, skills: selected})}
               placeholder="Select Skills/Interests"
               options={interests}
             />
