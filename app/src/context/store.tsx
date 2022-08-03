@@ -9,7 +9,7 @@ type Volunteer = {
     emergencyInfo?: EmergencyInfo
 }
 
-type StoreContext = {
+export type StoreContext = {
     volunteer: Volunteer | null,
     updatePersonalInfo: (update: PersonalInfo) => void,
     updateVolunteerInfo: (update: VolunteerInfo) => void,
@@ -17,13 +17,13 @@ type StoreContext = {
 }
 
 type Props = {
-    value: StoreContext,
-    children: ReactNode
+    value?: StoreContext,
+    children?: React.ReactNode
 }
 export const StoreContext = React.createContext<StoreContext | null>(null)
 
-const StoreProvider = ({children}: Props): JSX.Element => {
-    const [volunteer, setVolunteer] = React.useState<Volunteer | null>(null)
+const StoreProvider = ({children}: Props) => {
+    const [volunteer, setVolunteer] = React.useState<Volunteer>({})
 
     const updatePersonalInfo = (update: PersonalInfo) => {
         setVolunteer({...volunteer, personalInfo: update})

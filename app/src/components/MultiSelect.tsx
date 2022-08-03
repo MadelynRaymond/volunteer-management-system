@@ -69,17 +69,15 @@ export default function MultiSelect({
 
   const handleClick = (clickedTag: Option) => {
     onChange(value.filter(s => s.id !== clickedTag.id))
-    setFilteredOptions([...filteredOptions, clickedTag])
   };
 
   const handleSelect = (selectedOption: Option) => {
     onChange([...value, selectedOption])
-    setFilteredOptions(filteredOptions.filter(opt => opt.id !== selectedOption.id))
   };
 
   React.useEffect(() => {
-    value.length > 0 && setFilteredOptions(options.filter(opt => !value.some(other => opt.id === other.id)))
-  }, [])
+    setFilteredOptions(options.filter(opt => !value.some(other => opt.id === other.id)))
+  }, [value])
 
 
 

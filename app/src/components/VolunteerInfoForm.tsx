@@ -13,13 +13,12 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Link,
   Progress,
   Select,
   Stack,
   Textarea,
 } from "@chakra-ui/react";
-import { EmergencyInfo } from "./EmergencyContactForm";
+import { StoreContext } from "../context/store";
 
 export type VolunteerInfo = {
   availability: {id: number, value: string}[],
@@ -33,8 +32,8 @@ export type VolunteerInfo = {
 }
 
 export default function VolunteerInfoForm() {
-  const { state } = useLocation();
 
+  const {volunteer, updateVolunteerInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
   const personalInfo = React.useRef<PersonalInfo>();
   const [centers, setCenters] = React.useState<Array<{ id: number; name: string }>>();
@@ -48,7 +47,13 @@ export default function VolunteerInfoForm() {
     driversLicenseOnFile: false,
     socialSecurityOnFile: false
   })
-
+  
+  React.useEffect(() => {
+    getCenters()
+    if(volunteer && volunteer.volunteerInfo){
+      setVolunteerInfo(volunteer.volunteerInfo)
+    } 
+  }, [])
 
   const getCenters = async () => {
     const { data } = await axios.get<{ id: number; name: string }[]>(
@@ -75,11 +80,17 @@ export default function VolunteerInfoForm() {
                       education === '' || 
                       approvalStatus === ''
 
-    if(hasErrors) e.preventDefault()
-    const timeout = setTimeout(() => {
-      setSubmitted(false)
-      clearInterval(timeout)
-    }, 5000)
+    if(hasErrors){
+      e.preventDefault()
+      const timeout = setTimeout(() => {
+        setSubmitted(false)
+        clearInterval(timeout)
+      }, 5000)
+    }
+    else {
+      updateVolunteerInfo(volunteerInfo)
+    }
+    
 
   }
 
@@ -197,7 +208,7 @@ export default function VolunteerInfoForm() {
               Previous
             </Button>
           </NavLink>
-          <NavLink state={{personalInfo: personalInfo.current, volunteerInfo}} onClick={(e) => submit(e)} to="/CreateVolunteer/3">
+          <NavLink onClick={(e) => submit(e)} to="/CreateVolunteer/3">
             <Button
               rightIcon={<ArrowForwardIcon />}
               colorScheme="purple"

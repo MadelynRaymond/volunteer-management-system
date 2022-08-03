@@ -12,7 +12,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { StoreContext } from "../context/store";
 
 export type PersonalInfo = {
   firstName: string;
@@ -27,9 +28,8 @@ export type PersonalInfo = {
 };
 
 export default function PersonalInfoForm() {
-
+  const {volunteer, updatePersonalInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
-
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({
     firstName: "",
     lastName: "",
@@ -42,6 +42,11 @@ export default function PersonalInfoForm() {
     workPhoneNumber: "",
   });
 
+  React.useEffect(() => {
+    if(volunteer && volunteer.personalInfo){
+      setPersonalInfo(volunteer.personalInfo)
+    }
+  }, [])
 
   const hasError = (field: string) => field === '' && submitted
 
@@ -59,13 +64,18 @@ export default function PersonalInfoForm() {
       return false
     })
 
-    if(hasErrors) e.preventDefault()
-    const timeout = setTimeout(() => {
-      setSubmitted(false)
-      clearInterval(timeout)
-    }, 5000)
-
+    if(hasErrors){
+      e.preventDefault()
+      const timeout = setTimeout(() => {
+        setSubmitted(false)
+        clearInterval(timeout)
+      }, 5000)
+    }
+    else {
+      updatePersonalInfo(personalInfo)
+    }
   }
+
 
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
@@ -208,7 +218,7 @@ export default function PersonalInfoForm() {
             >
               Previous
             </Button>
-            <NavLink onClick={(e) => submit(e)} state={personalInfo} to="/CreateVolunteer/2">
+            <NavLink onClick={(e) => submit(e)} to="/CreateVolunteer/2">
               <Button
                 rightIcon={<ArrowForwardIcon />}
                 colorScheme="purple"

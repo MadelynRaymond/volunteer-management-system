@@ -11,21 +11,24 @@ import EmergencyContactForm from "./components/EmergencyContactForm";
 import NewVolunteer from "./views/NewVolunteer";
 import OpportunityForm from "./components/OpportunityForm";
 import AdminPage from "./components/AdminPage";
+import StoreProvider from "./context/store";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AdminPage />} />
-        <Route path="/TablePreview" element={<BaseTable />} />
-        
-        <Route path="/CreateOpportunity" element={<OpportunityForm />} />
-        <Route path="/CreateVolunteer" element={<NewVolunteer />}>
-          <Route path="1" element={<PersonalInfoForm />} />
-          <Route path="2" element={<VolunteerInfoForm />} />
-          <Route path="3" element={<EmergencyContactForm />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <StoreProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<AdminPage />} />
+          <Route path="/TablePreview" element={<BaseTable />} />
+      
+          <Route path="/CreateOpportunity" element={<OpportunityForm />} />
+          <Route path="/CreateVolunteer" element={<NewVolunteer />}>
+            <Route path="1" element={<PersonalInfoForm />} />
+            <Route path="2" element={<VolunteerInfoForm />} />
+            <Route path="3" element={<EmergencyContactForm />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </StoreProvider>
   </ChakraProvider>
 );
