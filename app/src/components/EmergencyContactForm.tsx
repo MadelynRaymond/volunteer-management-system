@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { StoreContext } from "../context/store";
+import NewVolunteer from "../views/NewVolunteer";
 import { PersonalInfo } from "./PersonalInfoForm";
 import { VolunteerInfo } from "./VolunteerInfoForm";
 
@@ -21,18 +23,15 @@ export type EmergencyInfo = {
   contactWorkNumber: string
 }
 
-type Volunteer = {
+type NewVolunteer = {
   personalInfo: PersonalInfo,
   volunteerInfo: VolunteerInfo,
   emergencyInfo: EmergencyInfo
 }
 
 export default function EmergencyContactForm() {
-
+  const {volunteer, updateEmergencyInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
-  const [volunteer, setVolunteer] = React.useState<Volunteer>()
-  const previousInfo = React.useRef<{personalInfo: PersonalInfo, 
-                                     volunteerInfo: VolunteerInfo}>()
 
   const [emergencyInfo, setEmergencyInfo] = React.useState<EmergencyInfo>({
     contactName: '',
@@ -44,8 +43,27 @@ export default function EmergencyContactForm() {
 
   const hasErrors = (field: string) => field === '' && submitted
 
-  const submit = () => {
-    console.log(volunteer)
+  const submit = (e: any) => {
+    setSubmitted(true)
+
+    const errors = hasErrors(emergencyInfo.contactName) || hasErrors(emergencyInfo.contactHomeNumber)
+
+    if(errors){
+      e.preventDefault()
+      const timeout = setTimeout(() => {
+        setSubmitted(false)
+        clearInterval(timeout)
+      }, 5000)
+    }
+    else {
+      updateEmergencyInfo(emergencyInfo)
+      if(volunteer) createVolunteer(volunteer as NewVolunteer)
+    }
+
+  }
+
+  const createVolunteer = (newVolunteer: NewVolunteer) => {
+    console.log(newVolunteer)
   }
 
   return (
