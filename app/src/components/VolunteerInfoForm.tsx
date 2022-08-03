@@ -145,10 +145,10 @@ export default function VolunteerInfoForm() {
               <FormLabel>Approval Status:</FormLabel>
               <Stack spacing={3}>
                 <Select onChange={(e) => setVolunteerInfo({...volunteerInfo, approvalStatus: e.target.value})} value={volunteerInfo.approvalStatus} variant="filled" placeholder="Select Current Status">
-                  <option value="option1">Pending Approval</option>
-                  <option value="option1">Approved</option>
-                  <option value="option1">Not Approved</option>
-                  <option value="option1">Inactive</option>
+                  <option value="Pending Approval">Pending Approval</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Not Approved">Not Approved</option>
+                  <option value="Inactive">Inactive</option>
                 </Select>
               </Stack>
             </FormControl>
