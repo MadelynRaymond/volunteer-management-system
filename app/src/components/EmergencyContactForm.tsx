@@ -58,6 +58,7 @@ export default function EmergencyContactForm() {
     }
     else {
       updateEmergencyInfo(emergencyInfo)
+      console.log(volunteer)
       if(volunteer) createVolunteer(volunteer as NewVolunteer)
     }
 
