@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Table,
@@ -15,10 +16,54 @@ import {
   Icon,
 } from "@chakra-ui/react";
 
-{
-  /*TODO: Add Props to base table */
+type RowProps = {
+  profile: {
+    firstName: string,
+		lastName: string,
+    email: string,
+    address: string,
+    approvalStatus: string
+  }
+}
+const TableRow = (props: RowProps): JSX.Element => {
+  return (
+    <Tr>
+      <Td>{props.profile.firstName} {props.profile.lastName}</Td>
+      <Td>{props.profile.email}</Td>
+      <Td>{props.profile.address}</Td>
+      <Td>
+        <Wrap>
+          <Tag>11:00AM-2:30PM</Tag>
+          <Tag>5:00PM-7:30PM</Tag>
+        </Wrap>
+      </Td>
+      <Td>
+        <Tag variant={"solid"} colorScheme={"green"}>
+          {props.profile.approvalStatus}
+        </Tag>
+      </Td>
+      <Td>
+        <Flex justifyContent={'space-between'}>
+          <Icon w={6} h={6} as={EditIcon}/>
+          <Icon w={6} h={6} as={DeleteIcon}/>
+        </Flex>
+      </Td>
+    </Tr>
+  )
 }
 export default function BaseTable() {
+  
+  const [data, setData] = React.useState<any[]>()
+
+  React.useEffect(() =>{
+    const getData = async () => {
+      const {data} = await axios.get('http://localhost:8080/Volunteers')
+      setData(data)
+    }
+
+    getData()
+  }, [])
+
   return (
     <TableContainer
       shadow={"md"}
@@ -39,62 +84,7 @@ export default function BaseTable() {
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>John Applebottom </Td>
-            <Td>yaboijappleb218@gmail.com</Td>
-            <Td>123 Sesame St. New York, NY 33523</Td>
-            <Td>
-              <Wrap>
-                <Tag>11:00AM-2:30PM</Tag>
-                <Tag>5:00PM-7:30PM</Tag>
-              </Wrap>
-            </Td>
-            <Td>
-              <Tag variant={"solid"} colorScheme={"green"}>
-                Approved
-              </Tag>
-            </Td>
-            <Td>
-              <Flex justifyContent={'space-between'}>
-                <Icon w={6} h={6} as={EditIcon}/>
-                <Icon w={6} h={6} as={DeleteIcon}/>
-              </Flex>
-            </Td>
-          </Tr>
-
-          <Tr>
-            <Td>Hozier Milton</Td>
-            <Td>themilt99@outlook.com</Td>
-            <Td>1250 Azure Ln. San Francisco, CA 90142</Td>
-            <Td>
-              <Wrap>
-                <Tag>9:00AM-12:30PM</Tag>
-                <Tag>2:00PM-2:30PM</Tag>
-                <Tag>3:00PM-4:30PM</Tag>
-              </Wrap>
-            </Td>
-            <Td>
-              <Tag variant={"solid"} colorScheme={"yellow"}>
-                Pending
-              </Tag>
-            </Td>
-          </Tr>
-
-          <Tr>
-            <Td>Claire White</Td>
-            <Td>cwhite@gmail.com</Td>
-            <Td>740 Rock Ln. Jackson, MO 22142</Td>
-            <Td>
-              <Wrap>
-                <Tag>3:00PM-8:30PM</Tag>
-              </Wrap>
-            </Td>
-            <Td>
-              <Tag variant={"solid"} colorScheme={"red"}>
-                Denied
-              </Tag>
-            </Td>
-          </Tr>
+          {data && data.map(row => <TableRow profile={row.profile} key={row.id} />)}
         </Tbody>
       </Table>
     </TableContainer>

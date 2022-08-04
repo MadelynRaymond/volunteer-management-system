@@ -4,14 +4,14 @@ import App from "./App";
 import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import BaseTable from "./components/BaseTable";
 import PersonalInfoForm from "./components/PersonalInfoForm";
 import VolunteerInfoForm from "./components/VolunteerInfoForm";
 import EmergencyContactForm from "./components/EmergencyContactForm";
 import NewVolunteer from "./views/NewVolunteer";
-import OpportunityForm from "./components/OpportunityForm";
-import AdminPage from "./components/AdminPage";
+import OpportunityForm from "./Components/OpportunityForm";
+import AdminPage from "./Components/AdminPage";
 import StoreProvider from "./context/store";
+import Volunteers from "./views/Volunteers";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
@@ -19,8 +19,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AdminPage />} />
-          <Route path="/TablePreview" element={<BaseTable />} />
-      
+          <Route path="/Volunteers" element={<Volunteers />} />
           <Route path="/CreateOpportunity" element={<OpportunityForm />} />
           <Route path="/CreateVolunteer" element={<NewVolunteer />}>
             <Route path="1" element={<PersonalInfoForm />} />
