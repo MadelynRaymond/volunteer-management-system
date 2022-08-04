@@ -71,27 +71,27 @@ export default function EmergencyContactForm() {
       <Box w="700px">
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
-          <Input type="text"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Emergency Contact Email</FormLabel>
-          <Input type="email"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactEmail: e.target.value})} type="email"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Emergency Contact Address</FormLabel>
-          <Input type="text"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl isInvalid={hasErrors(emergencyInfo.contactHomeNumber)} isRequired>
           <FormLabel>Home Phone Number</FormLabel>
-          <Input type="text"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomeNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Work Phone Number</FormLabel>
-          <Input type="text"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <Progress hasStripe value={66} size="lg" colorScheme="purple" />
