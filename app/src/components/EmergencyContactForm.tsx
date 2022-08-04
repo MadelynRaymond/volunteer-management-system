@@ -8,6 +8,7 @@ import {
   Input,
   Progress,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { StoreContext } from "../context/store";
@@ -45,7 +46,7 @@ export default function EmergencyContactForm() {
 
   const submit = (e: any) => {
     setSubmitted(true)
-
+    console.log(emergencyInfo)
     const errors = hasErrors(emergencyInfo.contactName) || hasErrors(emergencyInfo.contactHomeNumber)
 
     if(errors){
@@ -62,8 +63,31 @@ export default function EmergencyContactForm() {
 
   }
 
-  const createVolunteer = (newVolunteer: NewVolunteer) => {
-    console.log(newVolunteer)
+  const createVolunteer = async (newVolunteer: NewVolunteer) => {
+    const {personalInfo, volunteerInfo, emergencyInfo} = newVolunteer
+    const volunteer = {
+      accountInfo: {
+        username: personalInfo.username,
+        password: personalInfo.password
+      },
+      personalInfo: {
+        firstName: personalInfo.firstName,
+        lastName: personalInfo.lastName,
+        address: personalInfo.address,
+        email: personalInfo.email,
+        driversLicenseOnFile: volunteerInfo.driversLicenseOnFile,
+        socialSecurityOnFile: volunteerInfo.socialSecurityOnFile,
+        approvalStatus: volunteerInfo.approvalStatus
+      },
+      emergencyInfo: {
+        contactName: emergencyInfo.contactName,
+        contactHomePhoneNumber: emergencyInfo.contactHomeNumber
+      }
+    }
+
+    
+    await axios.post("http://localhost:8080/Volunteers", volunteer)
+    
   }
 
   return (
