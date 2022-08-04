@@ -137,7 +137,7 @@ export default function VolunteerInfoForm() {
 
           <FormControl>
             <FormLabel>Current Licenses:</FormLabel>
-            <Textarea placeholder="List any certifications that the volunteer currently holds." />
+            <Textarea value={volunteerInfo.currentLicenses} onChange={(e) => setVolunteerInfo({...volunteerInfo, currentLicenses: e.target.value})} placeholder="List any certifications that the volunteer currently holds." />
           </FormControl>
 
           <Flex gap="5">
@@ -191,8 +191,8 @@ export default function VolunteerInfoForm() {
               spacing={5}
               direction="row"
             >
-              <Checkbox>Florida Driver's License on File</Checkbox>
-              <Checkbox>SSN on File</Checkbox>
+              <Checkbox isChecked={volunteerInfo.driversLicenseOnFile} onChange={(e) => setVolunteerInfo({...volunteerInfo, driversLicenseOnFile: e.target.checked})}>Florida Driver's License on File</Checkbox>
+              <Checkbox isChecked={volunteerInfo.socialSecurityOnFile} onChange={(e) => setVolunteerInfo({...volunteerInfo, socialSecurityOnFile: e.target.checked})}>SSN on File</Checkbox>
             </Stack>
           </FormControl>
         </Stack>

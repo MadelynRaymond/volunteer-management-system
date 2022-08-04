@@ -69,6 +69,7 @@ export default function EmergencyContactForm() {
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="700px">
+        <p>{emergencyInfo.contactName}</p>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
