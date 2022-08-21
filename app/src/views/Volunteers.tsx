@@ -2,7 +2,7 @@
 import { Box, Center, Flex, Input, Select, Stack, Button } from '@chakra-ui/react'
 import axios from 'axios'
 import React from 'react'
-import BaseTable from '../components/BaseTable'
+import VolunteerTable from '../components/VolunteerTable'
 import { NavLink } from 'react-router-dom'
 
 export default function Volunteers() {
@@ -27,7 +27,7 @@ export default function Volunteers() {
                 <option value="INACTIVE">Inactive</option>
               </Select>
             </Flex>
-            <BaseTable approvalFilter={approvalFilter} searchQuery={searchQuery} />
+            <VolunteerTable approvalFilter={approvalFilter} searchQuery={searchQuery} />
           </Stack>
         </Center>
     </Box>

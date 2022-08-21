@@ -71,7 +71,7 @@ function NoMatch() {
     </Center>
   )
 }
-export default function BaseTable({searchQuery, approvalFilter}: TableProps) {
+export default function VolunteerTable({searchQuery, approvalFilter}: TableProps) {
   
   const [data, setData] = React.useState<any[]>()
   const [filteredData, setFilteredData] = React.useState<any[]>([])
