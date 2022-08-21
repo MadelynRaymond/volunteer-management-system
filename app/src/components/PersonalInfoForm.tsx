@@ -12,7 +12,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/store";
 
 export type PersonalInfo = {
@@ -28,6 +28,10 @@ export type PersonalInfo = {
 };
 
 export default function PersonalInfoForm() {
+
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const {volunteer, updatePersonalInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({
@@ -49,6 +53,7 @@ export default function PersonalInfoForm() {
   }, [])
 
   const hasError = (field: string) => field === '' && submitted
+
 
   const submit = (e: any) => {
     setSubmitted(true)
@@ -73,6 +78,9 @@ export default function PersonalInfoForm() {
     }
     else {
       updatePersonalInfo(personalInfo)
+      let newPath = location.pathname.split('/')
+      newPath.pop()
+      navigate(newPath.join('/') + '/2')
     }
   }
 
@@ -218,15 +226,16 @@ export default function PersonalInfoForm() {
             >
               Previous
             </Button>
-            <NavLink onClick={(e) => submit(e)} to="/CreateVolunteer/2">
-              <Button
-                rightIcon={<ArrowForwardIcon />}
-                colorScheme="purple"
-                variant="solid"
-              >
-                Next
-              </Button>
-            </NavLink>
+
+            <Button
+              onClick={(e) => submit(e)}
+              rightIcon={<ArrowForwardIcon />}
+              colorScheme="purple"
+              variant="solid"
+            >
+              Next
+            </Button>
+
           </Flex>
         </Stack>
       </Box>

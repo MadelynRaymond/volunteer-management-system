@@ -49,7 +49,7 @@ const TableRow = (props: RowProps): JSX.Element => {
       </Td>
       <Td>
         <Flex justifyContent={'space-between'}>
-          <Link state={props.id} to={`/EditVolunteer/${props.id}`}>
+          <Link state={props.id} to={`/EditVolunteer/${props.id}/1`}>
             <Icon w={6} h={6} as={EditIcon}/>
           </Link>
           <Icon w={6} h={6} as={DeleteIcon}/>

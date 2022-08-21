@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import MultiSelect from "./MultiSelect";
 import { PersonalInfo } from "./PersonalInfoForm";
 import { availabilityOptions } from "../assets/availability";
@@ -32,6 +32,9 @@ export type VolunteerInfo = {
 }
 
 export default function VolunteerInfoForm() {
+
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const {volunteer, updateVolunteerInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
@@ -67,8 +70,14 @@ export default function VolunteerInfoForm() {
       return field === '' && submitted
     }
     else {
-      return field.length === 0 && submitted
+      return field && field.length === 0 && submitted
     }
+  }
+
+  const previous = () => {
+    let newPath = location.pathname.split('/')
+    newPath.pop()
+    navigate(newPath.join('/') + '/1')
   }
 
   const submit = (e: any) => {
@@ -89,6 +98,9 @@ export default function VolunteerInfoForm() {
     }
     else {
       updateVolunteerInfo(volunteerInfo)
+      let newPath = location.pathname.split('/')
+      newPath.pop()
+      navigate(newPath.join('/') + '/3')
     }
     
 
@@ -199,24 +211,23 @@ export default function VolunteerInfoForm() {
         <Progress hasStripe value={66} size="lg" colorScheme="purple" />
 
         <Flex gap="5" justifyContent="center">
-          <NavLink state={personalInfo.current} to="/CreateVolunteer/1">
-            <Button
-              leftIcon={<ArrowBackIcon />}
-              colorScheme="purple"
-              variant="solid"
-            >
-              Previous
-            </Button>
-          </NavLink>
-          <NavLink onClick={(e) => submit(e)} to="/CreateVolunteer/3">
-            <Button
-              rightIcon={<ArrowForwardIcon />}
-              colorScheme="purple"
-              variant="solid"
-            >
-              Next
-            </Button>
-          </NavLink>
+          <Button
+            onClick={previous}
+            leftIcon={<ArrowBackIcon />}
+            colorScheme="purple"
+            variant="solid"
+          >
+            Previous
+          </Button>
+
+          <Button
+            onClick={(e) => submit(e)}
+            rightIcon={<ArrowForwardIcon />}
+            colorScheme="purple"
+            variant="solid"
+          >
+            Next
+          </Button>
         </Flex>
       </Box>
     </Flex>

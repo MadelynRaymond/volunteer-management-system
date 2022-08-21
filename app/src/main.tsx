@@ -21,7 +21,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<AdminPage />} />
           <Route path="/Volunteers" element={<Volunteers />} />
-          <Route path="/EditVolunteer/:id" element={<EditVolunteer/>}></Route>
+          <Route path="/EditVolunteer/:id" element={<EditVolunteer/>}>
+            <Route path="1" element={<PersonalInfoForm />} />
+            <Route path="2" element={<VolunteerInfoForm />} />
+            <Route path="3" element={<EmergencyContactForm />} />
+          </Route>
           <Route path="/CreateOpportunity" element={<OpportunityForm />} />
           <Route path="/CreateVolunteer" element={<NewVolunteer />}>
             <Route path="1" element={<PersonalInfoForm />} />

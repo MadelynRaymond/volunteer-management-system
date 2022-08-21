@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import PersonalInfoForm from '../components/PersonalInfoForm'
 import { StoreContext } from '../context/store'
 
@@ -29,7 +29,7 @@ export default function EditVolunteer() {
 
   return (
     <>
-      {!loading && <PersonalInfoForm/>}
+      {!loading && <Outlet/>}
     </>
   )
 }

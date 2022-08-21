@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/store";
 import NewVolunteer from "../views/NewVolunteer";
 import { PersonalInfo } from "./PersonalInfoForm";
@@ -31,6 +31,10 @@ type NewVolunteer = {
 }
 
 export default function EmergencyContactForm() {
+
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const {volunteer, updateEmergencyInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
 
@@ -42,7 +46,13 @@ export default function EmergencyContactForm() {
     contactWorkPhoneNumber: ''
   })
 
-  const hasErrors = (field: string) => field === '' && submitted
+  const previous = () => {
+    let newPath = location.pathname.split('/')
+    newPath.pop()
+    navigate(newPath.join('/') + '/2')
+  }
+
+  const hasErrors = (field: string) => !field || (field === '' && submitted)
 
   const submit = (e: any) => {
     setSubmitted(true)
@@ -129,15 +139,14 @@ export default function EmergencyContactForm() {
         <Progress hasStripe value={66} size="lg" colorScheme="purple" />
 
         <Flex gap="5" justifyContent="center">
-          <NavLink to="/CreateVolunteer/2">
-            <Button
-              leftIcon={<ArrowBackIcon />}
-              colorScheme="purple"
-              variant="solid"
-            >
-              Previous
-            </Button>
-          </NavLink>
+          <Button
+            onClick={previous}
+            leftIcon={<ArrowBackIcon />}
+            colorScheme="purple"
+            variant="solid"
+          >
+            Previous
+          </Button>
           <Button onClick={submit} colorScheme="pink" variant="solid">
             Submit
           </Button>
