@@ -14,6 +14,8 @@ import {
   Tag,
   Flex,
   Icon,
+  Center,
+  Text
 } from "@chakra-ui/react";
 
 type RowProps = {
@@ -38,7 +40,7 @@ const TableRow = (props: RowProps): JSX.Element => {
         </Wrap>
       </Td>
       <Td>
-        <Tag variant={"solid"} colorScheme={"green"}>
+        <Tag className="uppercase" colorScheme={`${props.profile.approvalStatus.toUpperCase() === 'APPROVED' ? 'green' : (props.profile.approvalStatus.toUpperCase() === 'PENDING APPROVAL' ? 'yellow' : 'red')}`} variant={"solid"}>
           {props.profile.approvalStatus}
         </Tag>
       </Td>
@@ -51,18 +53,52 @@ const TableRow = (props: RowProps): JSX.Element => {
     </Tr>
   )
 }
-export default function BaseTable() {
+
+interface TableProps {
+  searchQuery: string,
+  approvalFilter: string
+}
+
+function NoMatch() {
+  return (
+    <Center mt={'1rem'} mb={'1rem'} w={'100%'}>
+      <Text fontSize={'xl'}>No matching volunteers with current filter</Text>
+    </Center>
+  )
+}
+export default function BaseTable({searchQuery, approvalFilter}: TableProps) {
   
   const [data, setData] = React.useState<any[]>()
+  const [filteredData, setFilteredData] = React.useState<any[]>([])
+
+  const hasName = (name: string): boolean => {
+    if(searchQuery === '') return true
+
+    return name.toLowerCase().includes(searchQuery.toLowerCase())
+  }
+
+  const hasApproval = (status: string): boolean => {
+    if (approvalFilter === 'ALL') return true
+
+    return status.toUpperCase() === approvalFilter
+  }
 
   React.useEffect(() =>{
     const getData = async () => {
       const {data} = await axios.get('http://localhost:8080/Volunteers')
       setData(data)
+      setFilteredData(data)
     }
 
     getData()
   }, [])
+
+  React.useEffect(() => {
+    if(data) {
+      const update = data.filter(row => hasName(row.profile.firstName)).filter(row => hasApproval(row.profile.approvalStatus))
+      setFilteredData(update)
+    }
+  }, [searchQuery, approvalFilter])
 
   return (
     <TableContainer
@@ -71,7 +107,7 @@ export default function BaseTable() {
       borderRadius={"0.5rem"}
       p={2}
     >
-      <Table variant="simple" colorScheme="facebook">
+      {filteredData.length > 0 && <Table  variant="simple" colorScheme="facebook">
         <TableCaption></TableCaption>
         <Thead>
           <Tr>
@@ -84,9 +120,11 @@ export default function BaseTable() {
           </Tr>
         </Thead>
         <Tbody>
-          {data && data.map(row => <TableRow profile={row.profile} key={row.id} />)}
+          {filteredData.map(row => <TableRow profile={row.profile} key={row.id} />)}
         </Tbody>
-      </Table>
+      </Table>}
+
+      {filteredData.length === 0 && <NoMatch/>}
     </TableContainer>
   );
 }
