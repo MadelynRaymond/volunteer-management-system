@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Table,
@@ -18,7 +19,9 @@ import {
   Text
 } from "@chakra-ui/react";
 
+
 type RowProps = {
+  id: number,
   profile: {
     firstName: string,
 		lastName: string,
@@ -46,7 +49,9 @@ const TableRow = (props: RowProps): JSX.Element => {
       </Td>
       <Td>
         <Flex justifyContent={'space-between'}>
-          <Icon w={6} h={6} as={EditIcon}/>
+          <Link state={props.id} to={`/EditVolunteer/${props.id}`}>
+            <Icon w={6} h={6} as={EditIcon}/>
+          </Link>
           <Icon w={6} h={6} as={DeleteIcon}/>
         </Flex>
       </Td>
@@ -120,7 +125,7 @@ export default function BaseTable({searchQuery, approvalFilter}: TableProps) {
           </Tr>
         </Thead>
         <Tbody>
-          {filteredData.map(row => <TableRow profile={row.profile} key={row.id} />)}
+          {filteredData.map(row => <TableRow id={row.id} profile={row.profile} key={row.id} />)}
         </Tbody>
       </Table>}
 

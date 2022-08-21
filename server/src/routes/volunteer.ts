@@ -4,6 +4,7 @@ import { Prisma } from '@prisma/client'
 
 const volunteerRoute = express.Router()
 
+
 //Get all volunteers
 volunteerRoute.get('/', async (req, res) => {
     
@@ -20,7 +21,29 @@ volunteerRoute.get('/', async (req, res) => {
       }
   })
 
+
+
   res.status(200).send(volunteers)
+
+})
+
+volunteerRoute.get('/:id', async (req, res) => {
+  const id = parseInt(req.params.id)
+
+  const volunteer = await prisma.user.findUnique({
+    where: {
+      id
+    },
+    include: {
+      profile: {
+        include: {
+          emergencyInfo: true
+        }
+      }
+    }
+  })
+
+  res.status(200).send(volunteer)
 
 })
 

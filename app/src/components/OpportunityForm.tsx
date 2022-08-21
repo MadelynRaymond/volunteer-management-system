@@ -26,7 +26,7 @@ export default function OpportunityForm() {
   const [desc, setDesc] = React.useState("");
   const [startTime, setStartTime] = React.useState("");
   const [endTime, setEndTime] = React.useState("");
-  const [tags, setTags] = React.useState<Array<{ id: number; value: string }>>();
+  const [tags, setTags] = React.useState<Array<{ id: number; value: string }>>([]);
   const [center, setCenter] = React.useState("");
 
   const getCenters = async () => {
@@ -88,10 +88,10 @@ export default function OpportunityForm() {
             <Box w="100%">
               <FormLabel>Tags:</FormLabel>
               <MultiSelect
-                onSelect={(e) => setTags(e)}
+                value={tags}
+                onChange={(selected) => setTags(selected)}
                 placeholder="Select Skills/Interests"
-                options={interests}
-              />
+                options={interests}/>
             </Box>
             <Box w="100%">
               <FormControl isInvalid={hasError(center)} isRequired>

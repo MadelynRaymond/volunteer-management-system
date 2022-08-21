@@ -8,10 +8,11 @@ import PersonalInfoForm from "./components/PersonalInfoForm";
 import VolunteerInfoForm from "./components/VolunteerInfoForm";
 import EmergencyContactForm from "./components/EmergencyContactForm";
 import NewVolunteer from "./views/NewVolunteer";
-import OpportunityForm from "./Components/OpportunityForm";
-import AdminPage from "./Components/AdminPage";
+import OpportunityForm from "./components/OpportunityForm";
+import AdminPage from "./components/AdminPage";
 import StoreProvider from "./context/store";
 import Volunteers from "./views/Volunteers";
+import EditVolunteer from "./views/EditVolunteer";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<AdminPage />} />
           <Route path="/Volunteers" element={<Volunteers />} />
+          <Route path="/EditVolunteer/:id" element={<EditVolunteer/>}></Route>
           <Route path="/CreateOpportunity" element={<OpportunityForm />} />
           <Route path="/CreateVolunteer" element={<NewVolunteer />}>
             <Route path="1" element={<PersonalInfoForm />} />
