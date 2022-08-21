@@ -7,7 +7,11 @@ const opportunitiesRoute = express.Router()
 
 opportunitiesRoute.get('/', async (req, res) => {
     
-    const opportunities = await prisma.opportunity.findMany()
+    const opportunities = await prisma.opportunity.findMany({
+      include: {
+        center: true
+      }
+    })
   
     res.status(200).send(opportunities)
   

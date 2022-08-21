@@ -13,6 +13,7 @@ import AdminPage from "./components/AdminPage";
 import StoreProvider from "./context/store";
 import Volunteers from "./views/Volunteers";
 import EditVolunteer from "./views/EditVolunteer";
+import Opportunities from "./views/Opportunities";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <ChakraProvider>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AdminPage />} />
+          <Route path="/Opportunities" element={<Opportunities />} />
           <Route path="/Volunteers" element={<Volunteers />} />
           <Route path="/EditVolunteer/:id" element={<EditVolunteer/>}>
             <Route path="1" element={<PersonalInfoForm />} />
