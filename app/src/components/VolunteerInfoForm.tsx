@@ -24,7 +24,7 @@ export type VolunteerInfo = {
   availability: {id: number, value: string}[],
   preferredCenters: {id: number, value: string}[],
   skills: {id: number, value: string}[],
-  currentLicenses: string,
+  currentLicenses?: string,
   approvalStatus: string,
   education: string,
   driversLicenseOnFile: boolean,

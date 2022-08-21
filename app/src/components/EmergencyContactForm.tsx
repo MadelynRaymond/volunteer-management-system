@@ -18,10 +18,10 @@ import { VolunteerInfo } from "./VolunteerInfoForm";
 
 export type EmergencyInfo = {
   contactName: string,
-  contactEmail: string,
-  contactAddress: string,
-  contactHomeNumber: string,
-  contactWorkNumber: string
+  contactEmail?: string,
+  contactAddress?: string,
+  contactHomePhoneNumber: string,
+  contactWorkPhoneNumber?: string
 }
 
 type NewVolunteer = {
@@ -38,8 +38,8 @@ export default function EmergencyContactForm() {
     contactName: '',
     contactEmail: '',
     contactAddress: '',
-    contactHomeNumber: '',
-    contactWorkNumber: ''
+    contactHomePhoneNumber: '',
+    contactWorkPhoneNumber: ''
   })
 
   const hasErrors = (field: string) => field === '' && submitted
@@ -47,7 +47,7 @@ export default function EmergencyContactForm() {
   const submit = (e: any) => {
     setSubmitted(true)
     console.log(emergencyInfo)
-    const errors = hasErrors(emergencyInfo.contactName) || hasErrors(emergencyInfo.contactHomeNumber)
+    const errors = hasErrors(emergencyInfo.contactName) || hasErrors(emergencyInfo.contactHomePhoneNumber)
 
     if(errors){
       e.preventDefault()
@@ -78,11 +78,17 @@ export default function EmergencyContactForm() {
         email: personalInfo.email,
         driversLicenseOnFile: volunteerInfo.driversLicenseOnFile,
         socialSecurityOnFile: volunteerInfo.socialSecurityOnFile,
-        approvalStatus: volunteerInfo.approvalStatus
+        approvalStatus: volunteerInfo.approvalStatus,
+        homePhoneNumber: personalInfo.homePhoneNumber,
+        cellPhoneNumber: personalInfo.cellPhoneNumber,
+        workPhoneNumber: personalInfo.workPhoneNumber,
       },
       emergencyInfo: {
         contactName: emergencyInfo.contactName,
-        contactHomePhoneNumber: emergencyInfo.contactHomeNumber
+        contactHomePhoneNumber: emergencyInfo.contactHomePhoneNumber,
+        contactEmail: emergencyInfo.contactEmail,
+        contactWorkPhoneNumber: emergencyInfo.contactWorkPhoneNumber,
+        contactAddress: emergencyInfo.contactAddress
       }
     }
 
@@ -110,14 +116,14 @@ export default function EmergencyContactForm() {
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
         </FormControl>
 
-        <FormControl isInvalid={hasErrors(emergencyInfo.contactHomeNumber)} isRequired>
+        <FormControl isInvalid={hasErrors(emergencyInfo.contactHomePhoneNumber)} isRequired>
           <FormLabel>Home Phone Number</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomeNumber: e.target.value})} type="text"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Work Phone Number</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkNumber: e.target.value})} type="text"></Input>
+          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkPhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <Progress hasStripe value={66} size="lg" colorScheme="purple" />
