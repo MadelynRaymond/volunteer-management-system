@@ -1,8 +1,9 @@
 
-import { Box, Center, Flex, Input, Select, Stack } from '@chakra-ui/react'
+import { Box, Center, Flex, Input, Select, Stack, Button } from '@chakra-ui/react'
 import axios from 'axios'
 import React from 'react'
 import BaseTable from '../components/BaseTable'
+import { NavLink } from 'react-router-dom'
 
 export default function Volunteers() {
 
@@ -13,6 +14,9 @@ export default function Volunteers() {
     <Box w='100vw' >
         <Center mt={10} >
           <Stack minW={'1200px'} spacing={'16px'}>
+            <Flex justifyContent={'flex-end'}>
+              <NavLink to='/CreateVolunteer/1'><Button w={'150px'}>Add Volunteer</Button></NavLink>
+            </Flex>
             <Flex>
               <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder='Search by name: ' type="text"></Input>
               <Select value={approvalFilter} onChange={e => setApprovalFilter(e.target.value)}>
