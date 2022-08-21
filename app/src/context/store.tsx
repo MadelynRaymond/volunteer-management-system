@@ -21,9 +21,9 @@ interface VolunteerDTO {
         address: string,
         homePhoneNumber?: string,
         workPhoneNumber?: string,
-        cellPhoneNumber?: string,
-        email: "bob@bob.com",
-        education?: string,
+        cellPhoneNumber: string,
+        email: string,
+        education: string,
         currentLicenses?: string,
         driversLicenseOnFile: boolean,
         socialSecurityOnFile: boolean,
@@ -43,7 +43,7 @@ export type StoreContext = {
     updatePersonalInfo: (update: PersonalInfo) => void,
     updateVolunteerInfo: (update: VolunteerInfo) => void,
     updateEmergencyInfo: (update: EmergencyInfo) => void,
-    updateVolunteer: (update: Volunteer) => void
+    updateVolunteer: (update: unknown) => void
 }
 
 type Props = {
@@ -56,15 +56,46 @@ const StoreProvider = ({children}: Props) => {
     const [volunteer, setVolunteer] = React.useState<Volunteer>({})
 
     const updateVolunteer = (volunteer: unknown) => {
+        
         const isExistingVolunteer = (data: unknown): data is VolunteerDTO => {
-            if(data !== null && typeof data === 'object' && data.hasOwnProperty('profile')){
+            if(data !== undefined){
                 return true
             }
             return false
         }
 
         if(isExistingVolunteer(volunteer)){
-            
+            console.log('correct')
+            const personalInfo: PersonalInfo = {
+                firstName: volunteer.profile.firstName,
+                lastName: volunteer.profile.lastName,
+                username: volunteer.username,
+                password: volunteer.password,
+                email: volunteer.profile.email,
+                address: volunteer.profile.address,
+                cellPhoneNumber: volunteer.profile.cellPhoneNumber
+            }
+
+            const volunteerInfo: VolunteerInfo = {
+                availability: [{ id: 1, value: "Weekdays: 8AM-10AM" },{ id: 2, value: "Weekdays: 10AM-12PM" }], //missing from backend
+                preferredCenters: [], //missing from backend
+                skills: [], //missing from backend
+                currentLicenses: volunteer.profile.currentLicenses,
+                education: volunteer.profile.education,
+                driversLicenseOnFile: volunteer.profile.driversLicenseOnFile,
+                socialSecurityOnFile: volunteer.profile.socialSecurityOnFile,
+                approvalStatus: volunteer.profile.approvalStatus
+            }
+
+            const emergencyInfo: EmergencyInfo = {
+                contactName: volunteer.profile.emergencyInfo.contactName,
+                contactEmail: volunteer.profile.emergencyInfo.contactEmail,
+                contactHomePhoneNumber: volunteer.profile.emergencyInfo.contactHomePhoneNumber,
+                contactAddress: volunteer.profile.emergencyInfo.contactAddress,
+                contactWorkPhoneNumber: volunteer.profile.emergencyInfo.contactWorkPhoneNumber
+            }
+
+            setVolunteer({personalInfo, volunteerInfo, emergencyInfo})
         }
     }
 

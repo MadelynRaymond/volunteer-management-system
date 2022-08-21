@@ -28,7 +28,7 @@ model Profile {
   address String
   homePhoneNumber String?
   workPhoneNumber String?
-  cellPhoneNumber String?
+  cellPhoneNumber String
   email String
   education String?
   currentLicenses String?
