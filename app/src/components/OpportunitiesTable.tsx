@@ -43,7 +43,7 @@ function TableRow(props: RowProps): JSX.Element {
         <Tag>{props.startTime}</Tag>
         <Tag>{props.endTime}</Tag>
       </Td>
-      <Td style={{wordWrap: 'break-word'}}>{props.location}</Td>
+      <Td >{props.location}</Td>
       <Td>
         <Flex justifyContent={'space-between'}>
             <Link state={props.id} to={`/EditOpportunity/${props.id}/1`}>
