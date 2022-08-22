@@ -51,8 +51,9 @@ model VolunteerPrefers {
 
   volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
   center Center @relation(fields: [centerId], references: [id])
-  volunteerId Int @unique
-  centerId Int @unique
+  volunteerId Int 
+  centerId Int
+  @@unique([volunteerId, centerId])
 }
 
 model Center {

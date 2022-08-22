@@ -15,7 +15,12 @@ volunteerRoute.get('/', async (req, res) => {
       include: {
         profile: {
           include: {
-            emergencyInfo: true
+            emergencyInfo: true,
+            preferredCenters: {
+              include: {
+                center: true
+              }
+            }
           }
         }
       }
@@ -54,7 +59,8 @@ volunteerRoute.post('/', async (req, res) => {
   const accountInfo = req.body.accountInfo //username, password
   const emergencyInfo = req.body.emergencyInfo //firstName, lastName, address, cellPhoneNumber,email, driversLicenseOnFile, socialSecurityOnFile, approvalStatus,
   const personalInfo = req.body.personalInfo //contactName, contactHomePhoneNumber
-  
+
+  const centers = personalInfo.preferredCenters.map((center: any) => center.id)
   const volunteer = await prisma.user.create({
       data: {
           ...accountInfo,
@@ -66,6 +72,17 @@ volunteerRoute.post('/', async (req, res) => {
                 create: {
                   ...emergencyInfo
                 }
+              },
+              preferredCenters: {
+                create: centers.map((id: number) => (
+                  {
+                    center: {
+                      connect: {
+                        id
+                      }
+                    }
+                  }
+                ))
               }
             }
           },
