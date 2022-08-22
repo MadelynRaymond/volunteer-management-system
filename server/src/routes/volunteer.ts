@@ -20,6 +20,11 @@ volunteerRoute.get('/', async (req, res) => {
               include: {
                 center: true
               }
+            },
+            availability: {
+              include: {
+                availability: true
+              }
             }
           }
         }
@@ -61,6 +66,8 @@ volunteerRoute.post('/', async (req, res) => {
   const personalInfo = req.body.personalInfo //contactName, contactHomePhoneNumber
 
   const centers = personalInfo.preferredCenters.map((center: any) => center.id)
+  const availableTimes = personalInfo.availability.map((time: any) => time.id)
+
   const volunteer = await prisma.user.create({
       data: {
           ...accountInfo,
@@ -77,6 +84,17 @@ volunteerRoute.post('/', async (req, res) => {
                 create: centers.map((id: number) => (
                   {
                     center: {
+                      connect: {
+                        id
+                      }
+                    }
+                  }
+                ))
+              },
+              availability: {
+                create: availableTimes.map((id: number) => (
+                  {
+                    availability: {
                       connect: {
                         id
                       }

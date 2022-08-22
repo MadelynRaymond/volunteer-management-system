@@ -38,13 +38,22 @@ model Profile {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int    @unique
   emergencyInfo EmergencyContactInfo?
-  availability Availability?
+  availability IsAvailable[]
   preferredCenters VolunteerPrefers[]
 }
 
 model Availability {
-  volunteerId Int @id
+  id Int @id @default(autoincrement())
+  time String @unique
+  volunteerAvailability IsAvailable[]
+}
+
+model IsAvailable {
   volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
+  availability Availability @relation(fields: [availabilityId], references: [id])
+  volunteerId Int 
+  availabilityId Int
+  @@unique([volunteerId, availabilityId])
 }
 
 model VolunteerPrefers {

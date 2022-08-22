@@ -25,6 +25,23 @@ app.get('/Centers', async (req, res) => {
     res.status(200).send(centers)
 })
 
+app.get('/Availability', async (req, res) => {
+    const a = await prisma.availability.findMany()
+    res.status(200).send(a)
+})
+
+app.post('/Availability', async (req, res) => {
+    const time = req.body.time
+
+    const result = await prisma.availability.create({
+        data: {
+            time
+        }
+    })
+
+    res.status(201).send(result)
+})
+
 app.post('/Centers', async (req, res) => {
     const {name} = req.body
 
