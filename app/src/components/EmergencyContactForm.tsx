@@ -93,6 +93,8 @@ export default function EmergencyContactForm() {
         homePhoneNumber: personalInfo.homePhoneNumber,
         cellPhoneNumber: personalInfo.cellPhoneNumber,
         workPhoneNumber: personalInfo.workPhoneNumber,
+        preferredCenters: volunteerInfo.preferredCenters,
+        availability: volunteerInfo.availability
       },
       emergencyInfo: {
         contactName: emergencyInfo.contactName,

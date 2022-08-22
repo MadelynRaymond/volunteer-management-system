@@ -23,7 +23,7 @@ model User {
 model Profile {
   firstName String 
   lastName String
-  ///skills / interests
+  skills HasSkill[]
   bio String?
   address String
   homePhoneNumber String?
@@ -38,27 +38,52 @@ model Profile {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int    @unique
   emergencyInfo EmergencyContactInfo?
-  availability Availability?
-  centerPreference VolunteerPrefers?
+  availability IsAvailable[]
+  preferredCenters VolunteerPrefers[]
 }
 
 model Availability {
-  volunteerId Int @id
+  id Int @id @default(autoincrement())
+  time String @unique
+  volunteerAvailability IsAvailable[]
+}
+
+model Skill {
+  id Int @id @default(autoincrement())
+  name String @unique
+  hasSkill HasSkill[]
+}
+
+model HasSkill {
+  volunteerId Int
+  skillId Int
+  skill Skill @relation(fields: [skillId], references: [id])
+  volunteer Profile @relation(fields: [volunteerId], references: [userId])
+
+  @@unique([volunteerId, skillId]) 
+}
+
+model IsAvailable {
   volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
+  availability Availability @relation(fields: [availabilityId], references: [id])
+  volunteerId Int 
+  availabilityId Int
+  @@unique([volunteerId, availabilityId])
 }
 
 model VolunteerPrefers {
 
   volunteer Profile @relation(fields: [volunteerId], references: [userId], onDelete: Cascade)
   center Center @relation(fields: [centerId], references: [id])
-  volunteerId Int @unique
-  centerId Int @unique
+  volunteerId Int 
+  centerId Int
+  @@unique([volunteerId, centerId])
 }
 
 model Center {
   id Int @id @default(autoincrement())
   name String 
-  preference VolunteerPrefers?
+  preference VolunteerPrefers[]
   opportunities Opportunity[]
 
 }
