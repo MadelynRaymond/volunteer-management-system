@@ -5,11 +5,18 @@ import React from 'react'
 interface DialogProps {
   header: string,
   body: string,
-  deletionId: number
+  deletionId: number,
+  deleteAction: (id: number) => Promise<void>
 }
-export default function DeleteDialog({header, body, deletionId}: DialogProps) {
+export default function DeleteDialog({header, body, deletionId, deleteAction}: DialogProps) {
   const {isOpen, onOpen, onClose} = useDisclosure()
   const cancelRef = React.useRef(null)
+
+  const handleDelete = async () => {
+    console.log(deletionId)
+    await deleteAction(deletionId)
+    onClose()
+  }
 
   return (
     <>
@@ -32,7 +39,7 @@ export default function DeleteDialog({header, body, deletionId}: DialogProps) {
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme='red' onClick={onClose} ml={3}>
+              <Button colorScheme='red' onClick={handleDelete} ml={3}>
                 Delete
               </Button>
             </AlertDialogFooter>
