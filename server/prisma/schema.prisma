@@ -39,7 +39,7 @@ model Profile {
   userId Int    @unique
   emergencyInfo EmergencyContactInfo?
   availability Availability?
-  centerPreference VolunteerPrefers?
+  preferredCenters VolunteerPrefers?
 }
 
 model Availability {
