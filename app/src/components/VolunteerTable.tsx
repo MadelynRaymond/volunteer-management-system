@@ -17,7 +17,8 @@ import {
   Icon,
   Center,
   Text,
-  Button
+  Button,
+  IconButton
 } from "@chakra-ui/react";
 
 
@@ -49,10 +50,12 @@ const TableRow = (props: RowProps): JSX.Element => {
         </Tag>
       </Td>
       <Td>
-        <Flex justifyContent={'center'}>
+        <Flex gap='0.5rem'>
           <Link state={props.id} to={`/EditVolunteer/${props.id}/1`}>
-            <Icon w={6} h={6} as={EditIcon}/>
+            <IconButton aria-label='Search database' icon={<EditIcon />} />
           </Link>
+            <Button colorScheme={'cyan'} color={'white'}>View Matches</Button>
+
         </Flex>
       </Td>
     </Tr>

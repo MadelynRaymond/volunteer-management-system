@@ -14,6 +14,8 @@ import {
   Icon,
   Center,
   Text,
+  IconButton,
+  Button,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
@@ -52,11 +54,12 @@ function TableRow(props: RowProps): JSX.Element {
       </Td>
       <Td >{props.location}</Td>
       <Td>
-        <Flex justifyContent={'space-between'}>
+        <Flex justifyContent={'space-between'} gap='0.5rem'>
             <Link state={props.id} to={`/EditOpportunity/${props.id}/1`}>
-              <Icon w={6} h={6} as={EditIcon}/>
+              <IconButton aria-label='Search database' icon={<EditIcon />} />
             </Link>
             <DeleteDialog deleteAction={deleteOpportunity} deletionId={props.id} header="Delete Opportunity" body={`Delete opportunity "${props.name}?"`}/>
+            <Button colorScheme={'cyan'} color={'white'}>View Matches</Button>
           </Flex>
       </Td>
     </Tr>
