@@ -5,6 +5,7 @@ import React from 'react'
 import VolunteerTable from '../components/VolunteerTable'
 import { NavLink } from 'react-router-dom'
 
+
 export default function Volunteers() {
 
   const [searchQuery, setSearchQuery] = React.useState('')
@@ -28,6 +29,11 @@ export default function Volunteers() {
               </Select>
             </Flex>
             <VolunteerTable approvalFilter={approvalFilter} searchQuery={searchQuery} />
+            <Flex justifyContent={'flex-end'}>
+              <NavLink to='/'>
+                <Button>Back</Button>
+              </NavLink>
+            </Flex>
           </Stack>
         </Center>
     </Box>
