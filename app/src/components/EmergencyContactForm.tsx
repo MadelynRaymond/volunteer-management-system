@@ -94,7 +94,8 @@ export default function EmergencyContactForm() {
         cellPhoneNumber: personalInfo.cellPhoneNumber,
         workPhoneNumber: personalInfo.workPhoneNumber,
         preferredCenters: volunteerInfo.preferredCenters,
-        availability: volunteerInfo.availability
+        availability: volunteerInfo.availability,
+        skills: volunteerInfo.skills
       },
       emergencyInfo: {
         contactName: emergencyInfo.contactName,
