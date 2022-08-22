@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import MultiSelect from "./MultiSelect";
 import { PersonalInfo } from "./PersonalInfoForm";
@@ -8,6 +8,7 @@ import { availabilityOptions } from "../assets/availability";
 import { interests } from "../assets/interests";
 import {
   Box,
+  Text,
   Button,
   Checkbox,
   Flex,
@@ -109,6 +110,17 @@ export default function VolunteerInfoForm() {
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="800px">
+      <Flex justifyContent={'flex-end'}>
+          <NavLink to="/">
+                <Button
+                  leftIcon={<CloseIcon />}
+                  colorScheme="red"
+                  variant="solid"
+                >
+                  Cancel
+                </Button>
+          </NavLink>
+        </Flex>
         <Stack spacing="1.25rem">
           <Flex gap="5" alignItems={"end"}>
             <FormControl isInvalid={hasErrors(volunteerInfo.availability)} isRequired>

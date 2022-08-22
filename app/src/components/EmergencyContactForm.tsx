@@ -1,6 +1,7 @@
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Text,
   Button,
   Flex,
   FormControl,
@@ -110,7 +111,17 @@ export default function EmergencyContactForm() {
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="700px">
-        <p>{emergencyInfo.contactName}</p>
+      <Flex justifyContent={'flex-end'}>
+          <NavLink to="/">
+                <Button
+                  leftIcon={<CloseIcon />}
+                  colorScheme="red"
+                  variant="solid"
+                >
+                  Cancel
+                </Button>
+          </NavLink>
+        </Flex>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>

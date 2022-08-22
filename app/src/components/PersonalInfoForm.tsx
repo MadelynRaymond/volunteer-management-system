@@ -11,7 +11,7 @@ import {
   Stack,
   Button,
 } from "@chakra-ui/react";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/store";
 
@@ -88,6 +88,17 @@ export default function PersonalInfoForm() {
   return (
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="700px">
+        <Flex justifyContent={'flex-end'}>
+          <NavLink to="/">
+                <Button
+                  leftIcon={<CloseIcon />}
+                  colorScheme="red"
+                  variant="solid"
+                >
+                  Cancel
+                </Button>
+          </NavLink>
+        </Flex>
         <Text fontSize="4xl">Volunteer Personal Info</Text>
         <Stack spacing="1.25rem">
           <Flex gap="5">
