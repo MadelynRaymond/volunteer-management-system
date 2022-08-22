@@ -1,6 +1,8 @@
-import { Box, Center, Stack } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, Stack } from '@chakra-ui/react'
 import React from 'react'
-import OpportunitiesTable from '../components/OpportunitiesTable'
+import { NavLink } from 'react-router-dom'
+import OpportunitiesTable from '../Components/OpportunitiesTable'
+
 
 export default function Opportunities() {
   return (
@@ -9,6 +11,11 @@ export default function Opportunities() {
         <Center mt={10} >
           <Stack minW={'1200px'} spacing={'16px'}>
             <OpportunitiesTable />
+            <Flex justifyContent={'flex-end'}>
+              <NavLink to='/'>
+                <Button>Back</Button>
+              </NavLink>
+            </Flex>
           </Stack>
         </Center>
     </Box>

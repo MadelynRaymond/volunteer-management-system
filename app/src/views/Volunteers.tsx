@@ -2,8 +2,9 @@
 import { Box, Center, Flex, Input, Select, Stack, Button } from '@chakra-ui/react'
 import axios from 'axios'
 import React from 'react'
-import VolunteerTable from '../components/VolunteerTable'
 import { NavLink } from 'react-router-dom'
+import VolunteerTable from '../Components/VolunteerTable'
+
 
 export default function Volunteers() {
 
@@ -28,6 +29,11 @@ export default function Volunteers() {
               </Select>
             </Flex>
             <VolunteerTable approvalFilter={approvalFilter} searchQuery={searchQuery} />
+            <Flex justifyContent={'flex-end'}>
+              <NavLink to='/'>
+                <Button>Back</Button>
+              </NavLink>
+            </Flex>
           </Stack>
         </Center>
     </Box>

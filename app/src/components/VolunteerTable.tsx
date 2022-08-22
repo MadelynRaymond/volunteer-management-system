@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Table,
   Thead,
@@ -16,7 +16,8 @@ import {
   Flex,
   Icon,
   Center,
-  Text
+  Text,
+  Button
 } from "@chakra-ui/react";
 
 
@@ -48,11 +49,10 @@ const TableRow = (props: RowProps): JSX.Element => {
         </Tag>
       </Td>
       <Td>
-        <Flex justifyContent={'space-between'}>
+        <Flex justifyContent={'center'}>
           <Link state={props.id} to={`/EditVolunteer/${props.id}/1`}>
             <Icon w={6} h={6} as={EditIcon}/>
           </Link>
-          <Icon w={6} h={6} as={DeleteIcon}/>
         </Flex>
       </Td>
     </Tr>
