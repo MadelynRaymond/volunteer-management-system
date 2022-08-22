@@ -155,7 +155,7 @@ volunteerRoute.delete('/:id', async (req, res) => {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2025') {
       res.status(404).send({message: 'User not found'})
     }
-    res.sendStatus(500)
+    res.status(500).send(e)
   }
 
 })
