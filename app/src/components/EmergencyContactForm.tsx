@@ -47,30 +47,39 @@ export default function EmergencyContactForm() {
     contactWorkPhoneNumber: ''
   })
 
+  React.useEffect(() => {
+    updateEmergencyInfo({...emergencyInfo})
+  }, [emergencyInfo])
+
   const previous = () => {
     let newPath = location.pathname.split('/')
     newPath.pop()
     navigate(newPath.join('/') + '/2')
   }
 
-  const hasErrors = (field: string) => !field || (field === '' && submitted)
+  const hasErrors = (field: string) => {
+  
+    const result = (!field && submitted) || (field === '' && submitted)
+    return result
+  }
 
   const submit = (e: any) => {
     setSubmitted(true)
-    console.log(emergencyInfo)
+    
     const errors = hasErrors(emergencyInfo.contactName) || hasErrors(emergencyInfo.contactHomePhoneNumber)
+    console.log(errors)
 
     if(errors){
+      console.log('has errors')
       e.preventDefault()
       const timeout = setTimeout(() => {
         setSubmitted(false)
         clearInterval(timeout)
       }, 5000)
     }
-    else {
+    else if(!errors) {
       updateEmergencyInfo(emergencyInfo)
-      console.log(volunteer)
-      if(volunteer) createVolunteer(volunteer as NewVolunteer)
+      if(volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
     }
 
   }
