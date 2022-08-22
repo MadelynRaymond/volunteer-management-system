@@ -1,6 +1,6 @@
 
-import { AddIcon, ArrowBackIcon } from '@chakra-ui/icons'
-import { Box, Center, Flex, Input, Select, Stack, Button } from '@chakra-ui/react'
+import { AddIcon, ArrowBackIcon, CloseIcon } from '@chakra-ui/icons'
+import { Box, Center, Flex, Text, Input, Select, Stack, Button } from '@chakra-ui/react'
 import axios from 'axios'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
@@ -17,11 +17,14 @@ export default function Volunteers() {
         <Center mt={10} >
           <Stack minW={'1200px'} spacing={'16px'}>
             <Flex justifyContent={'space-between'} gap={'1rem'}>
-            <NavLink to='/'><Button leftIcon={<ArrowBackIcon />} colorScheme={'red'}>Back</Button></NavLink>
-              <NavLink to='/CreateVolunteer/1'><Button w={'150px'} rightIcon={<AddIcon />}  colorScheme={'purple'}>Add Volunteer</Button></NavLink>
+            <Text fontSize="3xl">Volunteers</Text>
+              <Flex gap={'1rem'}> 
+                <NavLink to='/'><Button leftIcon={<CloseIcon />} colorScheme={'red'}>Exit</Button></NavLink>
+                  <NavLink to='/CreateVolunteer/1'><Button w={'150px'} rightIcon={<AddIcon />}  colorScheme={'purple'}>Add Volunteer</Button></NavLink>
+              </Flex>
             </Flex>
             <Flex>
-              <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder='Search by name: ' type="text"></Input>
+              <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder='Search by Name: ' type="text"></Input>
               <Select value={approvalFilter} onChange={e => setApprovalFilter(e.target.value)}>
                 <option value="ALL">ALL</option>
                 <option value="APPROVED">Approved</option>
