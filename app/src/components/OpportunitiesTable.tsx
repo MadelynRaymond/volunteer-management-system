@@ -18,6 +18,7 @@ import {
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import DeleteDialog from "./DeleteDialog";
 
 
 
@@ -49,7 +50,7 @@ function TableRow(props: RowProps): JSX.Element {
             <Link state={props.id} to={`/EditOpportunity/${props.id}/1`}>
               <Icon w={6} h={6} as={EditIcon}/>
             </Link>
-            <Icon w={6} h={6} as={DeleteIcon}/>
+            <DeleteDialog deletionId={props.id} header="Delete Opportunity" body={`Delete opportunity "${props.name}?"`}/>
           </Flex>
       </Td>
     </Tr>
