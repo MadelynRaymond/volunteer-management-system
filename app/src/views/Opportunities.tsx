@@ -1,7 +1,8 @@
 import { Box, Button, Center, Flex, Stack } from '@chakra-ui/react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import OpportunitiesTable from '../components/OpportunitiesTable'
+import OpportunitiesTable from '../Components/OpportunitiesTable'
+
 
 export default function Opportunities() {
   return (
