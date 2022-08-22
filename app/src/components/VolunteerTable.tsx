@@ -43,7 +43,7 @@ const TableRow = (props: RowProps): JSX.Element => {
         </Wrap>
       </Td>
       <Td>
-        <Tag className="uppercase" colorScheme={`${props.profile.approvalStatus.toUpperCase() === 'APPROVED' ? 'green' : (props.profile.approvalStatus.toUpperCase() === 'PENDING APPROVAL' ? 'yellow' : 'red')}`} variant={"solid"}>
+        <Tag className="uppercase" colorScheme={`${props.profile.approvalStatus.toUpperCase() === 'APPROVED' ? 'green' : (props.profile.approvalStatus.toUpperCase() === 'PENDING APPROVAL' ? 'yellow' : props.profile.approvalStatus.toUpperCase() === 'DISAPPROVED' ? 'red' : 'gray')}`} variant={"solid"}>
           {props.profile.approvalStatus}
         </Tag>
       </Td>
