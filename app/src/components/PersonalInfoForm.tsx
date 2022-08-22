@@ -14,6 +14,7 @@ import {
 import { ArrowBackIcon, ArrowForwardIcon, CloseIcon } from "@chakra-ui/icons";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/store";
+import { emptyVolunteer } from "../utils/volunteer";
 
 export type PersonalInfo = {
   firstName: string;
@@ -32,7 +33,7 @@ export default function PersonalInfoForm() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const {volunteer, updatePersonalInfo} = React.useContext(StoreContext) as StoreContext
+  const {volunteer, updatePersonalInfo, updateVolunteer} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({
     firstName: "",
@@ -47,7 +48,10 @@ export default function PersonalInfoForm() {
   });
 
   React.useEffect(() => {
-    if(volunteer && volunteer.personalInfo){
+    if(location.state === 'create'){
+      updateVolunteer(null)
+    }
+    else if(volunteer && volunteer.personalInfo){
       setPersonalInfo(volunteer.personalInfo)
     }
   }, [])

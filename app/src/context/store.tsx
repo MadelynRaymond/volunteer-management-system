@@ -2,6 +2,7 @@ import React, { ReactNode } from "react"
 import { PersonalInfo } from "../components/PersonalInfoForm"
 import { VolunteerInfo } from "../components/VolunteerInfoForm"
 import {EmergencyInfo} from '../components/EmergencyContactForm'
+import { emptyVolunteer } from "../utils/volunteer"
 
 type Volunteer = {
     personalInfo?: PersonalInfo
@@ -22,6 +23,9 @@ interface VolunteerDTO {
         homePhoneNumber?: string,
         workPhoneNumber?: string,
         cellPhoneNumber: string,
+        availability: any[],
+        skills: any[],
+        preferredCenters: any[],
         email: string,
         education: string,
         currentLicenses?: string,
@@ -58,7 +62,7 @@ const StoreProvider = ({children}: Props) => {
     const updateVolunteer = (volunteer: unknown) => {
         
         const isExistingVolunteer = (data: unknown): data is VolunteerDTO => {
-            if(data !== undefined){
+            if(data !== undefined && data !== null){
                 return true
             }
             return false
@@ -77,9 +81,9 @@ const StoreProvider = ({children}: Props) => {
             }
 
             const volunteerInfo: VolunteerInfo = {
-                availability: [{ id: 1, value: "Weekdays: 8AM-10AM" },{ id: 2, value: "Weekdays: 10AM-12PM" }], //missing from backend
-                preferredCenters: [], //missing from backend
-                skills: [], //missing from backend
+                availability: volunteer.profile.availability, //missing from backend
+                preferredCenters: volunteer.profile.preferredCenters,
+                skills: volunteer.profile.skills,
                 currentLicenses: volunteer.profile.currentLicenses,
                 education: volunteer.profile.education,
                 driversLicenseOnFile: volunteer.profile.driversLicenseOnFile,
@@ -96,6 +100,9 @@ const StoreProvider = ({children}: Props) => {
             }
 
             setVolunteer({personalInfo, volunteerInfo, emergencyInfo})
+        }
+        else {
+            setVolunteer(emptyVolunteer)
         }
     }
 

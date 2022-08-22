@@ -28,8 +28,8 @@ export type VolunteerInfo = {
   currentLicenses?: string,
   approvalStatus: string,
   education: string,
-  driversLicenseOnFile: boolean,
-  socialSecurityOnFile: boolean
+  driversLicenseOnFile?: boolean,
+  socialSecurityOnFile?: boolean
 }
 
 export default function VolunteerInfoForm() {

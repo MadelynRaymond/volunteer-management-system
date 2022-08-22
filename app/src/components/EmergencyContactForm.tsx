@@ -59,15 +59,15 @@ export default function EmergencyContactForm() {
 
   const hasErrors = (field: string) => {
   
-    const result = (!field && submitted) || (field === '' && submitted)
+    const result = (field === '' && submitted)
     return result
   }
 
   const submit = (e: any) => {
     setSubmitted(true)
     
-    const errors = hasErrors(emergencyInfo.contactName) || hasErrors(emergencyInfo.contactHomePhoneNumber)
-    console.log(errors)
+    const errors = hasErrors(emergencyInfo.contactName)
+    console.log(volunteer?.emergencyInfo)
 
     if(errors){
       console.log('has errors')
@@ -136,6 +136,7 @@ export default function EmergencyContactForm() {
                 </Button>
           </NavLink>
         </Flex>
+        <p>{emergencyInfo.contactName}</p>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
@@ -151,6 +152,7 @@ export default function EmergencyContactForm() {
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
         </FormControl>
 
+        <p>{emergencyInfo.contactHomePhoneNumber}</p>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactHomePhoneNumber)} isRequired>
           <FormLabel>Home Phone Number</FormLabel>
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>

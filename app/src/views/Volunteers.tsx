@@ -4,7 +4,7 @@ import { Box, Center, Flex, Input, Select, Stack, Button } from '@chakra-ui/reac
 import axios from 'axios'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import VolunteerTable from '../Components/VolunteerTable'
+import VolunteerTable from '../components/VolunteerTable'
 
 
 export default function Volunteers() {
@@ -18,7 +18,7 @@ export default function Volunteers() {
           <Stack minW={'1200px'} spacing={'16px'}>
             <Flex justifyContent={'space-between'} gap={'1rem'}>
             <NavLink to='/'><Button leftIcon={<ArrowBackIcon />} colorScheme={'red'}>Back</Button></NavLink>
-              <NavLink to='/CreateVolunteer/1'><Button w={'150px'} rightIcon={<AddIcon />}  colorScheme={'purple'}>Add Volunteer</Button></NavLink>
+              <NavLink to='/CreateVolunteer/1' state={'create'}><Button w={'150px'} rightIcon={<AddIcon />}  colorScheme={'purple'}>Add Volunteer</Button></NavLink>
             </Flex>
             <Flex>
               <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder='Search by name: ' type="text"></Input>
