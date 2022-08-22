@@ -39,7 +39,7 @@ model Profile {
   userId Int    @unique
   emergencyInfo EmergencyContactInfo?
   availability Availability?
-  preferredCenters VolunteerPrefers?
+  preferredCenters VolunteerPrefers[]
 }
 
 model Availability {
@@ -58,7 +58,7 @@ model VolunteerPrefers {
 model Center {
   id Int @id @default(autoincrement())
   name String 
-  preference VolunteerPrefers?
+  preference VolunteerPrefers[]
   opportunities Opportunity[]
 
 }
