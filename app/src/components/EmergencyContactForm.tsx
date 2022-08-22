@@ -109,6 +109,7 @@ export default function EmergencyContactForm() {
 
     
     await axios.post("http://localhost:8080/Volunteers", volunteer)
+    navigate('/')
     
   }
 
@@ -162,9 +163,9 @@ export default function EmergencyContactForm() {
           >
             Previous
           </Button>
-          <Button onClick={submit} colorScheme="pink" variant="solid">
-            Submit
-          </Button>
+            <Button onClick={submit} colorScheme="pink" variant="solid">
+              Submit
+            </Button>
         </Flex>
       </Box>
     </Flex>
