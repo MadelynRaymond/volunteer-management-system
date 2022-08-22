@@ -74,7 +74,8 @@ volunteerRoute.post('/', async (req, res) => {
   const availableTimes = personalInfo.availability.map((time: any) => time.id)
   const skills = personalInfo.skills.map((skill: any) => skill.id)
 
-  const volunteer = await prisma.user.create({
+  try {
+    const volunteer = await prisma.user.create({
       data: {
           ...accountInfo,
           role: 'VOLUNTEER',
@@ -122,8 +123,15 @@ volunteerRoute.post('/', async (req, res) => {
             }
           },
       }
-  })
-  res.status(201).send(volunteer)
+    })
+    res.status(201).send(volunteer)
+  }
+  catch(e) {
+    if(e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002'){
+      res.status(400).send({message: 'user already exists'})
+    }
+  }
+  
 })
 
 
