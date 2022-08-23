@@ -104,8 +104,16 @@ export default function EmergencyContactForm() {
       }
     }
 
-    
-    await axios.post("http://localhost:8080/Volunteers", volunteer)
+    //sometimes you gotta do what you gotta do. ):
+    const id = location.pathname.split('/')[2]
+
+    if(location.pathname.includes('Edit')){
+      await axios.delete(`http://localhost:8080/Volunteers/${id}`)
+      await axios.post("http://localhost:8080/Volunteers", volunteer)
+    }
+    else {
+      await axios.post("http://localhost:8080/Volunteers", volunteer)
+    }
     navigate('/')
     
   }
