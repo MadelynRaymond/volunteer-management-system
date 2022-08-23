@@ -2,8 +2,10 @@ import express from 'express';
 import cors from 'cors'
 import volunteerRoute from './routes/volunteer';
 import opportunitiesRoute from './routes/opportunities'
+import loginRoute from './routes/login'
 import prisma from './prisma-init'
 const app = express()
+
 
 app.use(cors({
     credentials: true,
@@ -12,6 +14,7 @@ app.use(cors({
 app.use(express.json())
 app.use('/Volunteers', volunteerRoute)
 app.use('/Opportunities', opportunitiesRoute)
+app.use('/login', loginRoute)
 
 const port = 8080
 
