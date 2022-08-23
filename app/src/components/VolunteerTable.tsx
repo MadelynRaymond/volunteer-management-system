@@ -20,6 +20,7 @@ import {
   Button,
   IconButton
 } from "@chakra-ui/react";
+import NoMatch from "./NoMatch";
 
 
 type RowProps = {
@@ -68,13 +69,7 @@ interface TableProps {
   approvalFilter: string
 }
 
-function NoMatch() {
-  return (
-    <Center mt={'1rem'} mb={'1rem'} w={'100%'}>
-      <Text fontSize={'xl'}>No matching volunteers with current filter</Text>
-    </Center>
-  )
-}
+
 export default function VolunteerTable({searchQuery, approvalFilter}: TableProps) {
   
   const [data, setData] = React.useState<any[]>()
@@ -133,7 +128,7 @@ export default function VolunteerTable({searchQuery, approvalFilter}: TableProps
         </Tbody>
       </Table>}
 
-      {filteredData.length === 0 && <NoMatch/>}
+      {filteredData.length === 0 && <NoMatch notFoundText="No matching volunteers with current filter"/>}
     </TableContainer>
   );
 }

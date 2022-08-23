@@ -22,6 +22,7 @@ import {
 import axios from "axios";
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import NoMatch from "../components/NoMatch";
 
 
 
@@ -105,7 +106,7 @@ export default function VolunteerMatches(props: TableProps) {
   return (
     <Box w={'100vw'}>
       <Center mt={10}>
-        <Stack maxW={'1400px'}>
+        <Stack minW={'1200px'}>
           <TableContainer
             shadow={"md"}
             textAlign={"center"}
@@ -127,7 +128,8 @@ export default function VolunteerMatches(props: TableProps) {
                 {filteredData.map(row => <TableRow id={row.id} profile={row.profile} key={row.id} />)}
               </Tbody>
             </Table>}
-          
+            
+            {filteredData.length === 0 && <NoMatch notFoundText="No matching volunteers for this opportunity"/>}
           </TableContainer>
         </Stack>
       </Center>
