@@ -27,6 +27,7 @@ export default function Volunteers() {
               <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)} placeholder='Search by Name: ' type="text"></Input>
               <Select value={approvalFilter} onChange={e => setApprovalFilter(e.target.value)}>
                 <option value="ALL">ALL</option>
+                <option value="APPROVED/PENDING APPROVAL">APPROVED/PENDING APPROVAL</option>
                 <option value="APPROVED">Approved</option>
                 <option value="PENDING APPROVAL">Pending Approval</option>
                 <option value="NOT APPROVED">Disapproved</option>

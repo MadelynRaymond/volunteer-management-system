@@ -84,7 +84,7 @@ export default function VolunteerTable({searchQuery, approvalFilter}: TableProps
   const hasApproval = (status: string): boolean => {
     if (approvalFilter === 'ALL') return true
 
-    return status.toUpperCase() === approvalFilter
+    return approvalFilter.toUpperCase().includes(status.toUpperCase())
   }
 
   React.useEffect(() =>{
