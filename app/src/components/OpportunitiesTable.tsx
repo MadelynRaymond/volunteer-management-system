@@ -21,6 +21,7 @@ import axios from "axios";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
+import NoMatch from "./NoMatch";
 
 
 
@@ -153,6 +154,7 @@ export default function OpportunitiesTable(props: TableProps) {
           }} />)}
         </Tbody>
       </Table>}
+      {filteredData.length === 0 && <NoMatch notFoundText="No opportunities matching current filters"/>}
 
       
     </TableContainer>
