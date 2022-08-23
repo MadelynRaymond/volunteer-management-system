@@ -51,7 +51,8 @@ function TableRow(props: RowProps): JSX.Element {
       <Td>{props.center.name}</Td>
       <Td>
         <Tag>{props.startTime}</Tag>
-        <Tag>{props.endTime}</Tag>
+        <Text as="span"> to </Text>
+         <Tag>{props.endTime}</Tag>
       </Td>
       <Td >{props.location}</Td>
       <Td>
