@@ -153,7 +153,7 @@ export default function EmergencyContactForm() {
 
         <Progress hasStripe value={66} size="lg" colorScheme="purple" />
 
-        <Flex gap="5" justifyContent="center">
+        <Flex mt={"1rem"} gap="5" justifyContent="center">
           <Button
             onClick={previous}
             leftIcon={<ArrowBackIcon />}
