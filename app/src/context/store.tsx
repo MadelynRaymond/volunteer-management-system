@@ -47,7 +47,10 @@ export type StoreContext = {
     updatePersonalInfo: (update: PersonalInfo) => void,
     updateVolunteerInfo: (update: VolunteerInfo) => void,
     updateEmergencyInfo: (update: EmergencyInfo) => void,
-    updateVolunteer: (update: unknown) => void
+    updateVolunteer: (update: unknown) => void,
+    setLoggedIn: (token: string) => void,
+    getAuthHeader: () => {Authorization: string},
+    token: string
 }
 
 type Props = {
@@ -58,6 +61,11 @@ export const StoreContext = React.createContext<StoreContext | null>(null)
 
 const StoreProvider = ({children}: Props) => {
     const [volunteer, setVolunteer] = React.useState<Volunteer>({})
+    const [token, setToken] = React.useState('')
+
+    const setLoggedIn = (token: string) => setToken(token)
+
+    const getAuthHeader = () => token ? ({Authorization: `Bearer ${token}`}) : ({Authorization: ''})
 
     const updateVolunteer = (volunteer: unknown) => {
         
@@ -123,7 +131,7 @@ const StoreProvider = ({children}: Props) => {
         setVolunteer({...volunteer, emergencyInfo: update})
     }
 
-    return <StoreContext.Provider value={{volunteer, updateVolunteer, updatePersonalInfo, updateVolunteerInfo, updateEmergencyInfo}}>{children}</StoreContext.Provider>
+    return <StoreContext.Provider value={{volunteer, updateVolunteer, updatePersonalInfo, updateVolunteerInfo, updateEmergencyInfo, getAuthHeader, setLoggedIn, token}}>{children}</StoreContext.Provider>
 }
 
 export default StoreProvider
