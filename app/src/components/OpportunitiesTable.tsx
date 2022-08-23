@@ -67,7 +67,7 @@ function TableRow(props: RowProps): JSX.Element {
 }
 
 interface TableProps {
-
+  searchQuery: string
 }
 
 export default function OpportunitiesTable(props: TableProps) {
@@ -75,9 +75,13 @@ export default function OpportunitiesTable(props: TableProps) {
   const [data, setData] = React.useState<any[]>()
   const [filteredData, setFilteredData] = React.useState<any[]>([])
 
+  const hasName = (name: string): boolean => {
+    if(props.searchQuery === '') return true
+    return name.toLowerCase().includes(props.searchQuery.toLowerCase())
+  }
+
   const onDelete = async (id: number) => {
     const res = await axios.delete(`http://localhost:8080/Opportunities/${id}`)
-    console.log(res)
     data && setData(data.filter((row) => row.id !== id))
   }
 
@@ -91,7 +95,14 @@ export default function OpportunitiesTable(props: TableProps) {
   React.useEffect(() => {
     getOpportunities()
 
-  }, [data])
+  }, [])
+
+  React.useEffect(() => {
+    if(data){
+      const update = data.filter((row: any) => hasName(row.name))
+      setFilteredData(update)
+    }
+  }, [props.searchQuery])
 
 
   return (
