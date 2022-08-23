@@ -1,5 +1,7 @@
 This is the IS Senior Project (CIS4327) submission for Team "RTMR Tech."
 
+Credentials for admin account:
+
 To run the server:
 1. cd into server folder
 2. open terminal
