@@ -122,7 +122,7 @@ export default function EmergencyContactForm() {
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="700px">
       <Flex justifyContent={'flex-end'}>
-          <NavLink to="/">
+          <NavLink to="/Volunteers">
                 <Button
                   leftIcon={<CloseIcon />}
                   colorScheme="red"
@@ -132,7 +132,6 @@ export default function EmergencyContactForm() {
                 </Button>
           </NavLink>
         </Flex>
-        <p>{emergencyInfo.contactName}</p>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
@@ -148,7 +147,6 @@ export default function EmergencyContactForm() {
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
         </FormControl>
 
-        <p>{emergencyInfo.contactHomePhoneNumber}</p>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactHomePhoneNumber)} isRequired>
           <FormLabel>Home Phone Number</FormLabel>
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>
@@ -159,9 +157,9 @@ export default function EmergencyContactForm() {
           <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkPhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
-        <Progress hasStripe value={66} size="lg" colorScheme="purple" />
+        <Progress mt={'1rem'} hasStripe value={99} size="lg" colorScheme="purple" />
 
-        <Flex mt={"1rem"} gap="5" justifyContent="center">
+        <Flex mt={'1rem'} gap="5" justifyContent="center">
           <Button
             onClick={previous}
             leftIcon={<ArrowBackIcon />}

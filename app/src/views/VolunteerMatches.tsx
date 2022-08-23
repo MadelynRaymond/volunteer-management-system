@@ -1,4 +1,4 @@
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Table,
   Thead,
@@ -107,6 +107,18 @@ export default function VolunteerMatches(props: TableProps) {
     <Box w={'100vw'}>
       <Center mt={10}>
         <Stack minW={'1200px'}>
+        <Flex justifyContent={'space-between'}>
+            <Text fontSize={'2xl'} mb={'1rem'}>Volunteer Matches: </Text>
+            <NavLink to="/Opportunities">
+              <Button
+                leftIcon={<CloseIcon />}
+                colorScheme="red"
+                variant="solid"
+              >
+                Exit
+              </Button>
+            </NavLink>
+          </Flex>
           <TableContainer
             shadow={"md"}
             textAlign={"center"}
