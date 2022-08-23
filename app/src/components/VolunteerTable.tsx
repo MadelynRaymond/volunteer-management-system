@@ -56,8 +56,7 @@ const TableRow = (props: RowProps): JSX.Element => {
           <Link state={props.id} to={`/EditVolunteer/${props.id}/1`}>
             <IconButton aria-label='Search database' icon={<EditIcon />} />
           </Link>
-            <Button colorScheme={'cyan'} color={'white'}>View Matches</Button>
-
+            <Link to={`OpportunityMatches/${props.id}`}><Button colorScheme={'cyan'} color={'white'}>View Matches</Button></Link>
         </Flex>
       </Td>
     </Tr>
