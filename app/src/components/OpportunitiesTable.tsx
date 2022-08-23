@@ -59,7 +59,7 @@ function TableRow(props: RowProps): JSX.Element {
               <IconButton aria-label='Search database' icon={<EditIcon />} />
             </Link>
             <DeleteDialog deleteAction={deleteOpportunity} deletionId={props.id} header="Delete Opportunity" body={`Delete opportunity "${props.name}?"`}/>
-            <Link to={`VolunteerMatches/${props.id}`}><Button colorScheme={'cyan'} color={'white'}>View Matches</Button></Link>
+            <Link to={`/Opportunities/VolunteerMatches/${props.id}`}><Button colorScheme={'cyan'} color={'white'}>View Matches</Button></Link>
           </Flex>
       </Td>
     </Tr>

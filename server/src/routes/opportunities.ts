@@ -18,6 +18,22 @@ opportunitiesRoute.get('/', async (req, res) => {
   
   })
 
+
+opportunitiesRoute.get('/:id', async (req, res) => {
+    const id = parseInt(req.params.id)
+    const opportunity = await prisma.opportunity.findUnique({
+      where: {
+        id
+      },
+      include: {
+        center: true,
+        tags: true
+      }
+    })
+  
+    res.status(200).send(opportunity)
+  
+  })
 opportunitiesRoute.post('/', async (req, res) => {
     const { name, startTime, endTime, centerId, location, description, tags } = req.body
     const tagIds = tags.map((tag: any) => tag.id)
