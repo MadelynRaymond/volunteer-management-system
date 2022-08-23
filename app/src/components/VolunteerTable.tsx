@@ -77,7 +77,7 @@ export default function VolunteerTable({searchQuery, approvalFilter}: TableProps
 
   const hasName = (name: string): boolean => {
     if(searchQuery === '') return true
-
+    console.log(name)
     return name.toLowerCase().includes(searchQuery.toLowerCase())
   }
 
@@ -99,7 +99,7 @@ export default function VolunteerTable({searchQuery, approvalFilter}: TableProps
 
   React.useEffect(() => {
     if(data) {
-      const update = data.filter(row => hasName(row.profile.firstName) || hasName(row.profile.lastName)).filter(row => hasApproval(row.profile.approvalStatus))
+      const update = data.filter(row =>  hasName(row.profile.firstName + ' ' + row.profile.lastName)).filter(row => hasApproval(row.profile.approvalStatus))
       setFilteredData(update)
     }
   }, [searchQuery, approvalFilter])
