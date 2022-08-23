@@ -9,7 +9,8 @@ opportunitiesRoute.get('/', async (req, res) => {
     
     const opportunities = await prisma.opportunity.findMany({
       include: {
-        center: true
+        center: true,
+        tags: true
       }
     })
   
@@ -18,7 +19,8 @@ opportunitiesRoute.get('/', async (req, res) => {
   })
 
 opportunitiesRoute.post('/', async (req, res) => {
-    const { name, startTime, endTime, centerId, location, description } = req.body
+    const { name, startTime, endTime, centerId, location, description, tags } = req.body
+    const tagIds = tags.map((tag: any) => tag.id)
 
     const opportunity = await prisma.opportunity.create({
         data: {
@@ -27,7 +29,18 @@ opportunitiesRoute.post('/', async (req, res) => {
             endTime,
             centerId,
             location,
-            description
+            description,
+            tags: {
+              create: tagIds.map((id: number) => (
+                {
+                  skill: {
+                    connect: {
+                      id
+                    }
+                  }
+                }
+              ))
+            }
         }
     })
     res.status(201).send(opportunity)

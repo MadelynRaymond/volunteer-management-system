@@ -47,8 +47,10 @@ export default function OpportunityForm() {
       centerId: parseInt(center),
       location: address,
       description: desc,
-      //tags can be added later
+      tags
     };
+
+    console.log(opportunity)
     const { data } = await axios.post(
       "http://localhost:8080/Opportunities",
       opportunity

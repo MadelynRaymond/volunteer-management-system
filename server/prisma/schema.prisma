@@ -52,6 +52,7 @@ model Skill {
   id Int @id @default(autoincrement())
   name String @unique
   hasSkill HasSkill[]
+  hasSkillTag HasSkillTag[]
 }
 
 model HasSkill {
@@ -107,5 +108,14 @@ model Opportunity {
   centerId Int
   location String
   description String
-  
+  tags HasSkillTag[] 
+}
+
+model HasSkillTag {
+  opportunityId Int
+  skillId Int
+  skill Skill @relation(fields: [skillId], references: [id])
+  opportunity Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+
+  @@unique([opportunityId, skillId]) 
 }
