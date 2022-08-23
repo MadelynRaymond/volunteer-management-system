@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import DeleteDialog from "./DeleteDialog";
 
 
@@ -59,7 +59,7 @@ function TableRow(props: RowProps): JSX.Element {
               <IconButton aria-label='Search database' icon={<EditIcon />} />
             </Link>
             <DeleteDialog deleteAction={deleteOpportunity} deletionId={props.id} header="Delete Opportunity" body={`Delete opportunity "${props.name}?"`}/>
-            <Button colorScheme={'cyan'} color={'white'}>View Matches</Button>
+            <Link to={`VolunteerMatches/${props.id}`}><Button colorScheme={'cyan'} color={'white'}>View Matches</Button></Link>
           </Flex>
       </Td>
     </Tr>
