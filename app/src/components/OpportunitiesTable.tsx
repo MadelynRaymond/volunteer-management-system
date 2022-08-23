@@ -68,7 +68,8 @@ function TableRow(props: RowProps): JSX.Element {
 
 interface TableProps {
   searchQuery: string,
-  centerFilter: number
+  centerFilter: number,
+  mostRecentFilter: boolean
 }
 
 export default function OpportunitiesTable(props: TableProps) {
@@ -86,6 +87,14 @@ export default function OpportunitiesTable(props: TableProps) {
     if(props.centerFilter === -1) return true
 
     return id === props.centerFilter
+  }
+
+  const isUpcoming = (date: Date) => {
+    if(props.mostRecentFilter === false) return true
+    const now = new Date()
+    let sixtyDaysLater = new Date()
+    sixtyDaysLater.setDate(now.getDate() + 60)
+    return now <= date && date <= sixtyDaysLater
   }
 
   const onDelete = async (id: number) => {
@@ -114,9 +123,10 @@ export default function OpportunitiesTable(props: TableProps) {
     if(data){
       const update = data.filter((row: any) => hasName(row.name))
                          .filter((row: any) => matchesCenter(row.center.id))
+                         .filter((row: any) => isUpcoming(new Date(row.date)))
       setFilteredData(update)
     }
-  }, [props.searchQuery, props.centerFilter])
+  }, [props.searchQuery, props.centerFilter, props.mostRecentFilter])
 
 
   return (
