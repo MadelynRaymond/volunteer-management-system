@@ -48,6 +48,13 @@ export default function EmergencyContactForm() {
   })
 
   React.useEffect(() => {
+    if(volunteer && volunteer.emergencyInfo){
+      const safeUpdate = Object.assign(emergencyInfo, volunteer.emergencyInfo)
+      setEmergencyInfo({...safeUpdate})
+    }
+  }, [])
+
+  React.useEffect(() => {
     updateEmergencyInfo({...emergencyInfo})
   }, [emergencyInfo])
 
@@ -140,27 +147,27 @@ export default function EmergencyContactForm() {
         </Flex>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactName} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Emergency Contact Email</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactEmail: e.target.value})} type="email"></Input>
+          <Input value={emergencyInfo.contactEmail} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactEmail: e.target.value})} type="email"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Emergency Contact Address</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactAddress} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl isInvalid={hasErrors(emergencyInfo.contactHomePhoneNumber)} isRequired>
           <FormLabel>Home Phone Number</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactHomePhoneNumber} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Work Phone Number</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkPhoneNumber: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactWorkPhoneNumber} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkPhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <Progress mt={'1rem'} hasStripe value={99} size="lg" colorScheme="purple" />
