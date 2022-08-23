@@ -94,7 +94,7 @@ export default function PersonalInfoForm() {
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="700px">
         <Flex justifyContent={'flex-end'}>
-          <NavLink to="/">
+          <NavLink to="/Volunteers">
                 <Button
                   leftIcon={<CloseIcon />}
                   colorScheme="red"

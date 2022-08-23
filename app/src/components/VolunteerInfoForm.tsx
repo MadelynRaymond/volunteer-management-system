@@ -121,7 +121,7 @@ export default function VolunteerInfoForm() {
     <Flex w="100vw" mt="2rem" justifyContent="center">
       <Box w="800px">
       <Flex justifyContent={'flex-end'}>
-          <NavLink to="/">
+          <NavLink to="/Volunteers">
                 <Button
                   leftIcon={<CloseIcon />}
                   colorScheme="red"
@@ -234,8 +234,8 @@ export default function VolunteerInfoForm() {
               <Checkbox isChecked={volunteerInfo.socialSecurityOnFile} onChange={(e) => setVolunteerInfo({...volunteerInfo, socialSecurityOnFile: e.target.checked})}>SSN on File</Checkbox>
             </Stack>
           </FormControl>
+          <Progress hasStripe value={66} size="lg" colorScheme="purple" />
         </Stack>
-        <Progress hasStripe value={66} size="lg" colorScheme="purple" />
 
         <Flex mt={"1rem"} gap="5" justifyContent="center">
           <Button
