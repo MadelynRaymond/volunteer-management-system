@@ -66,9 +66,15 @@ export default function EmergencyContactForm() {
   const submit = (e: any) => {
     setSubmitted(true)
     
-    const errors = hasErrors(emergencyInfo.contactName)
+    const errors = emergencyInfo.contactName === '' || emergencyInfo.contactHomePhoneNumber === ''
 
-    if(volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
+    if(errors) {
+      const delay = setTimeout(() => {
+        setSubmitted(false)
+        clearInterval(delay)
+      }, 500)
+    }
+    if(!errors && volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
 
   }
 
