@@ -67,42 +67,56 @@ function TableRow(props: RowProps): JSX.Element {
 }
 
 interface TableProps {
-  searchQuery: string
+  searchQuery: string,
+  centerFilter: number
 }
 
 export default function OpportunitiesTable(props: TableProps) {
 
   const [data, setData] = React.useState<any[]>()
   const [filteredData, setFilteredData] = React.useState<any[]>([])
+  
 
   const hasName = (name: string): boolean => {
     if(props.searchQuery === '') return true
     return name.toLowerCase().includes(props.searchQuery.toLowerCase())
   }
 
+  const matchesCenter =  (id: number): boolean => {
+    if(props.centerFilter === -1) return true
+
+    return id === props.centerFilter
+  }
+
   const onDelete = async (id: number) => {
     const res = await axios.delete(`http://localhost:8080/Opportunities/${id}`)
-    data && setData(data.filter((row) => row.id !== id))
+    if(data) {
+      const update = data.filter((row) => row.id !== id)
+      setData(update)
+    }
   }
 
   const getOpportunities = async () => {
     const {data} = await axios.get('http://localhost:8080/Opportunities')
     setData(data)
     setFilteredData(data)
-
   }
 
   React.useEffect(() => {
     getOpportunities()
-
   }, [])
+
+  React.useEffect(() => {
+    data && setFilteredData(data)
+  }, [data])
 
   React.useEffect(() => {
     if(data){
       const update = data.filter((row: any) => hasName(row.name))
+                         .filter((row: any) => matchesCenter(row.center.id))
       setFilteredData(update)
     }
-  }, [props.searchQuery])
+  }, [props.searchQuery, props.centerFilter])
 
 
   return (

@@ -35,8 +35,12 @@ opportunitiesRoute.get('/:id', async (req, res) => {
   
   })
 opportunitiesRoute.post('/', async (req, res) => {
-    const { name, startTime, endTime, centerId, location, description, tags } = req.body
+    const { name, startTime, endTime, centerId, location, description, tags, date } = req.body
     const tagIds = tags.map((tag: any) => tag.id)
+
+
+    const [year, month, day] = date.split('-')
+    const dateTime = new Date(year, month - 1, day)
 
     const opportunity = await prisma.opportunity.create({
         data: {
@@ -46,6 +50,7 @@ opportunitiesRoute.post('/', async (req, res) => {
             centerId,
             location,
             description,
+            date: dateTime,
             tags: {
               create: tagIds.map((id: number) => (
                 {

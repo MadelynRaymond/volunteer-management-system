@@ -28,6 +28,7 @@ export default function OpportunityForm() {
   const [endTime, setEndTime] = React.useState("");
   const [tags, setTags] = React.useState<Array<{ id: number; value: string }>>([]);
   const [center, setCenter] = React.useState("");
+  const [date, setDate] = React.useState('')
 
   const getCenters = async () => {
     const { data } = await axios.get<{ id: number; name: string }[]>(
@@ -47,7 +48,8 @@ export default function OpportunityForm() {
       centerId: parseInt(center),
       location: address,
       description: desc,
-      tags
+      tags,
+      date
     };
 
     console.log(opportunity)
@@ -137,7 +139,10 @@ export default function OpportunityForm() {
               </FormControl>
             </Box>
           </Flex>
-
+          <FormControl isInvalid={hasError(date)} isRequired>
+            <FormLabel>Date: {date}</FormLabel>
+            <Input value={date} onChange={(e) => setDate(e.target.value)} type={'date'} size={'md'}/>
+          </FormControl>
           <FormControl isInvalid={hasError(address)} isRequired>
             <FormLabel>Location Address:</FormLabel>
             <Input
