@@ -237,7 +237,7 @@ export default function VolunteerInfoForm() {
         </Stack>
         <Progress hasStripe value={66} size="lg" colorScheme="purple" />
 
-        <Flex mt={1} gap="5" justifyContent="center">
+        <Flex mt={"1rem"} gap="5" justifyContent="center">
           <Button
             onClick={previous}
             leftIcon={<ArrowBackIcon />}

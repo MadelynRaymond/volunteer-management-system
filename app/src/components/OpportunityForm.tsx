@@ -153,7 +153,7 @@ export default function OpportunityForm() {
             />
           </FormControl>
 
-          <Flex mt={1} gap="5" justifyContent="center">
+          <Flex mt={"1rem"} gap="5" justifyContent="center">
             <NavLink to="/">
               <Button
                 leftIcon={<CloseIcon />}
