@@ -69,7 +69,12 @@ const StoreProvider = ({children}: Props) => {
         }
 
         if(isExistingVolunteer(volunteer)){
-            console.log('correct')
+            const preferredCenters = volunteer.profile.preferredCenters.map((entry) => ({id: entry.center.id, value: entry.center.name}))
+            const skills = volunteer.profile.skills.map((entry) => ({id: entry.skill.id, value: entry.skill.name}))
+            const availability = volunteer.profile.availability.map((entry) => ({id: entry.availability.id, value: entry.availability.time}))
+            console.log(preferredCenters)
+            console.log(skills)
+            console.log(availability)
             const personalInfo: PersonalInfo = {
                 firstName: volunteer.profile.firstName,
                 lastName: volunteer.profile.lastName,
@@ -81,14 +86,14 @@ const StoreProvider = ({children}: Props) => {
             }
 
             const volunteerInfo: VolunteerInfo = {
-                availability: volunteer.profile.availability, //missing from backend
-                preferredCenters: volunteer.profile.preferredCenters,
-                skills: volunteer.profile.skills,
+                availability, //missing from backend
+                preferredCenters,
+                skills,
                 currentLicenses: volunteer.profile.currentLicenses,
                 education: volunteer.profile.education,
                 driversLicenseOnFile: volunteer.profile.driversLicenseOnFile,
                 socialSecurityOnFile: volunteer.profile.socialSecurityOnFile,
-                approvalStatus: volunteer.profile.approvalStatus
+                approvalStatus: volunteer.profile.approvalStatus,
             }
 
             const emergencyInfo: EmergencyInfo = {

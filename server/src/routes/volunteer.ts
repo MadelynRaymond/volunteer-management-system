@@ -17,17 +17,17 @@ volunteerRoute.get('/', async (req, res) => {
           include: {
             emergencyInfo: true,
             preferredCenters: {
-              include: {
+              select: {
                 center: true
               }
             },
             availability: {
-              include: {
+              select: {
                 availability: true
               }
             },
             skills: {
-              include: {
+              select: {
                 skill: true
               }
             }
@@ -52,7 +52,22 @@ volunteerRoute.get('/:id', async (req, res) => {
     include: {
       profile: {
         include: {
-          emergencyInfo: true
+          emergencyInfo: true,
+          preferredCenters: {
+              select: {
+                center: true
+              }
+            },
+            availability: {
+              select: {
+                availability: true
+              }
+            },
+            skills: {
+              select: {
+                skill: true
+              }
+            }
         }
       }
     }

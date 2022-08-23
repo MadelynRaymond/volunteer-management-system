@@ -67,20 +67,8 @@ export default function EmergencyContactForm() {
     setSubmitted(true)
     
     const errors = hasErrors(emergencyInfo.contactName)
-    console.log(volunteer?.emergencyInfo)
 
-    if(errors){
-      console.log('has errors')
-      e.preventDefault()
-      const timeout = setTimeout(() => {
-        setSubmitted(false)
-        clearInterval(timeout)
-      }, 5000)
-    }
-    else if(!errors) {
-      updateEmergencyInfo(emergencyInfo)
-      if(volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
-    }
+    if(volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
 
   }
 

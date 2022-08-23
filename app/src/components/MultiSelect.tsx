@@ -85,7 +85,7 @@ export default function MultiSelect({
     <Stack spacing="0.5rem">
       <Box>
         <Wrap>
-          {value.map((s) => (
+          {value.length > 0 && value.map((s) => (
             <TagWithIcon
               handleClick={handleClick}
               key={s.id}

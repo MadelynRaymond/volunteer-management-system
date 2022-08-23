@@ -41,6 +41,7 @@ export default function VolunteerInfoForm() {
   const [submitted, setSubmitted] = React.useState(false)
   const personalInfo = React.useRef<PersonalInfo>();
   const [centers, setCenters] = React.useState<Array<{ id: number; name: string }>>();
+  const [availability, setAvailability] = React.useState<Array<{id: number, time: string}>>()
   const [volunteerInfo, setVolunteerInfo] = React.useState<VolunteerInfo>({
     availability: [],
     preferredCenters: [],
@@ -54,8 +55,12 @@ export default function VolunteerInfoForm() {
   
   React.useEffect(() => {
     getCenters()
+    getAvailability()
     if(volunteer && volunteer.volunteerInfo){
-      setVolunteerInfo(volunteer.volunteerInfo)
+      console.log(volunteer.volunteerInfo)
+      const safeUpdate = Object.assign(volunteerInfo, volunteer.volunteerInfo)
+      console.log(safeUpdate)
+      setVolunteerInfo({...safeUpdate})
     } 
   }, [])
 
@@ -65,6 +70,11 @@ export default function VolunteerInfoForm() {
     );
     setCenters(data);
   };
+
+  const getAvailability = async () => {
+    const {data} = await axios.get<{id: number, time: string}[]>('http://localhost:8080/Availability')
+    setAvailability(data)
+  }
 
   const hasErrors = (field: unknown[] | string) => {
     if(typeof field === 'string'){
@@ -125,19 +135,24 @@ export default function VolunteerInfoForm() {
           <Flex gap="5" alignItems={"end"}>
             <FormControl isInvalid={hasErrors(volunteerInfo.availability)} isRequired>
               <FormLabel>Availability:</FormLabel>
-              <MultiSelect
-                value={volunteerInfo.availability}
+              {availability && (
+                <MultiSelect
+                value={[...volunteerInfo.availability]}
                 onChange={(selected) => setVolunteerInfo({...volunteerInfo, availability: selected})}
                 placeholder="Select Available Times"
-                options={availabilityOptions}
+                options={availability.map((entry) => ({
+                  id: entry.id,
+                  value: entry.time,
+                }))}
               />
+              )}
             </FormControl>
 
             <FormControl isInvalid={hasErrors(volunteerInfo.preferredCenters)} isRequired>
               <FormLabel>Preferred Center(s):</FormLabel>
               {centers && (
                 <MultiSelect
-                  value={volunteerInfo.preferredCenters}
+                  value={[...volunteerInfo.preferredCenters]}
                   onChange={(selected) => setVolunteerInfo({...volunteerInfo, preferredCenters: selected})}
                   placeholder="Select Center(s)"
                   options={centers.map((center) => ({
@@ -152,7 +167,7 @@ export default function VolunteerInfoForm() {
           <FormControl>
             <FormLabel>Skills/Interests:</FormLabel>
             <MultiSelect
-              value={volunteerInfo.skills}
+              value={[...volunteerInfo.skills]}
               onChange={(selected) => setVolunteerInfo({...volunteerInfo, skills: selected})}
               placeholder="Select Skills/Interests"
               options={interests}
@@ -161,7 +176,7 @@ export default function VolunteerInfoForm() {
 
           <FormControl>
             <FormLabel>Current Licenses:</FormLabel>
-            <Textarea value={volunteerInfo.currentLicenses} onChange={(e) => setVolunteerInfo({...volunteerInfo, currentLicenses: e.target.value})} placeholder="List any certifications that the volunteer currently holds." />
+            <Textarea value={volunteerInfo.currentLicenses || ''} onChange={(e) => setVolunteerInfo({...volunteerInfo, currentLicenses: e.target.value})} placeholder="List any certifications that the volunteer currently holds." />
           </FormControl>
 
           <Flex gap="5">

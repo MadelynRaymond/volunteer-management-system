@@ -29,7 +29,9 @@ type RowProps = {
 		lastName: string,
     email: string,
     address: string,
-    approvalStatus: string
+    approvalStatus: string,
+    availability: any[],
+    preferredCenters: any[]
   }
 }
 const TableRow = (props: RowProps): JSX.Element => {

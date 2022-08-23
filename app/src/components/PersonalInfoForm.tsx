@@ -52,7 +52,8 @@ export default function PersonalInfoForm() {
       updateVolunteer(null)
     }
     else if(volunteer && volunteer.personalInfo){
-      setPersonalInfo(volunteer.personalInfo)
+      const safeUpdate = Object.assign(personalInfo, volunteer.personalInfo)
+      setPersonalInfo({...safeUpdate})
     }
   }, [])
 
