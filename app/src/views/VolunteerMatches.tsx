@@ -133,7 +133,7 @@ export default function VolunteerMatches(props: TableProps) {
                   <Th>Email</Th>
                   <Th>Address</Th>
                   <Th>Availability</Th>
-                  <Th>ApprovalStatus</Th>
+                  <Th>Approval Status</Th>
                 </Tr>
               </Thead>
               <Tbody>

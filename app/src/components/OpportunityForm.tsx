@@ -161,10 +161,10 @@ export default function OpportunityForm() {
           </FormControl>
 
           <Flex mt={"1rem"} gap="5" justifyContent="center">
-            <NavLink to="/">
+            <NavLink to="/Opportunities">
               <Button
                 leftIcon={<CloseIcon />}
-                colorScheme="purple"
+                colorScheme="red"
                 variant="solid"
               >
                 Cancel
@@ -173,7 +173,7 @@ export default function OpportunityForm() {
 
             <Button
               onClick={submit}
-              colorScheme="pink"
+              colorScheme="purple"
               leftIcon={<CheckIcon />}
               variant="solid"
             >
