@@ -67,7 +67,7 @@ export default function Login() {
                     </FormControl>
                     <FormControl isRequired isInvalid={notPopulated(password)}>
                         <FormLabel>Password:</FormLabel>
-                        <Input onChange={(e) => setPassword(e.target.value)} type="text" />
+                        <Input onChange={(e) => setPassword(e.target.value)} type="password" />
                     </FormControl>
                     <Center>
                       <Text color={'red.300'}>{error}</Text>
