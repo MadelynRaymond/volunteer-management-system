@@ -1,4 +1,4 @@
-**This is the IS Senior Project (CIS4327) submission for Team "RTMR Tech."**
+**This is the IS Senior Project (CIS4327) pre-semester submission for Team "RTMR Tech."**
 
 **Credentials for admin account:<br />**
 username: admin <br />
