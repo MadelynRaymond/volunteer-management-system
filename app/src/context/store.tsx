@@ -71,7 +71,10 @@ const StoreProvider = ({children}: Props) => {
         
         const isExistingVolunteer = (data: unknown): data is VolunteerDTO => {
             if(data !== undefined && data !== null){
-                return true
+                if(typeof data === 'object'){
+                    if(Object.keys(data).length === 0 && Object.getPrototypeOf(data) === Object.prototype) return false
+                    return true
+                }
             }
             return false
         }
@@ -115,7 +118,7 @@ const StoreProvider = ({children}: Props) => {
             setVolunteer({personalInfo, volunteerInfo, emergencyInfo})
         }
         else {
-            setVolunteer(emptyVolunteer)
+            setVolunteer({})
         }
     }
 

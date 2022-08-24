@@ -36,7 +36,7 @@ export default function EmergencyContactForm() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const {volunteer, updateEmergencyInfo} = React.useContext(StoreContext) as StoreContext
+  const {volunteer, updateEmergencyInfo, updateVolunteer} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
 
   const [emergencyInfo, setEmergencyInfo] = React.useState<EmergencyInfo>({
@@ -128,6 +128,7 @@ export default function EmergencyContactForm() {
       await axios.post("http://localhost:8080/Volunteers", volunteer)
     }
     navigate('/')
+    updateVolunteer({})
     
   }
 
