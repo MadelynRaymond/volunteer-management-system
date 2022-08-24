@@ -12,7 +12,6 @@ export default function EditVolunteer() {
   const {volunteer, updateVolunteer} = React.useContext(StoreContext) as StoreContext
   const getVolunteer = async () => {
     const hasId = (state: unknown): state is number => state !== null && typeof state === 'number'
-    console.log(state)
     if(hasId(state)) {
       const {data} = await axios.get(`http://localhost:8080/Volunteers/${state}`)
       updateVolunteer(data)

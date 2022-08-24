@@ -13,7 +13,7 @@ export default function DeleteDialog({header, body, deletionId, deleteAction}: D
   const cancelRef = React.useRef(null)
 
   const handleDelete = async () => {
-    console.log(deletionId)
+
     await deleteAction(deletionId)
     onClose()
   }

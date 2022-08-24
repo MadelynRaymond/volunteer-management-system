@@ -74,7 +74,6 @@ export default function OpportunityForm(props: FormProps) {
 
     if(location.pathname.includes('Edit')){
       const id = location.pathname.split('/')[2]
-      console.log(id)
       await axios.delete(`http://localhost:8080/Opportunities/${id}`)
     }
 

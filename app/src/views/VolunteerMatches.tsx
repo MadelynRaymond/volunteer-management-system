@@ -86,14 +86,10 @@ export default function VolunteerMatches(props: TableProps) {
   
     if(data){
       const test = data.map((row: any) => row.profile.skills)
-      console.log(test)
       const result = data.filter((row: any) => row.profile.skills.some((skill: any) => {
         return taggedSkills.some((tag: any) => tag === skill.skill.id)
       }))
       setFilteredData(result)
-    }
-    else {
-      console.log('wtf')
     }
   }
 

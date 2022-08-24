@@ -81,11 +81,7 @@ export default function OpportunityMatches(props: TableProps) {
     const centers = volunteer.current.profile.preferredCenters.map((c: any) => c.center)
     if(data){
       const result = data.filter((row: any) => centers.some((c: any) => c.name === row.center.name))
-      console.log(result)
       setFilteredData(result)
-    }
-    else {
-      console.log('wtf')
     }
   }
 

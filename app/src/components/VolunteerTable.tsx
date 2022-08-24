@@ -48,7 +48,7 @@ const TableRow = (props: RowProps): JSX.Element => {
         </Wrap>
       </Td>
       <Td>
-        <Tag className="uppercase" colorScheme={`${props.profile.approvalStatus.toUpperCase() === 'APPROVED' ? 'green' : (props.profile.approvalStatus.toUpperCase() === 'PENDING APPROVAL' ? 'yellow' : props.profile.approvalStatus.toUpperCase() === 'DISAPPROVED' ? 'red' : 'gray')}`} variant={"solid"}>
+        <Tag className="uppercase" colorScheme={`${props.profile.approvalStatus.toUpperCase() === 'APPROVED' ? 'green' : (props.profile.approvalStatus.toUpperCase() === 'PENDING APPROVAL' ? 'yellow' : props.profile.approvalStatus.toUpperCase() === 'NOT APPROVED' ? 'red' : 'gray')}`} variant={"solid"}>
           {props.profile.approvalStatus}
         </Tag>
       </Td>
@@ -77,14 +77,17 @@ export default function VolunteerTable({searchQuery, approvalFilter}: TableProps
 
   const hasName = (name: string): boolean => {
     if(searchQuery === '') return true
-    console.log(name)
     return name.toLowerCase().includes(searchQuery.toLowerCase())
   }
 
   const hasApproval = (status: string): boolean => {
     if (approvalFilter === 'ALL') return true
+    const inStatus = approvalFilter.toUpperCase().includes(status.toUpperCase())
+    const falsePosDisapprove = approvalFilter === 'APPROVED' && status.toUpperCase() === 'NOT APPROVED'
+    const falsePosApprove = approvalFilter === 'NOT APPROVED' && status.toUpperCase() === 'APPROVED'
+    console.log(falsePosApprove)
 
-    return approvalFilter.toUpperCase().includes(status.toUpperCase())
+    return inStatus && !falsePosDisapprove && !falsePosApprove
   }
 
   React.useEffect(() =>{
