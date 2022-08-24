@@ -127,7 +127,7 @@ export default function EmergencyContactForm() {
     else {
       await axios.post("http://localhost:8080/Volunteers", volunteer)
     }
-    navigate('/')
+    navigate('/Volunteers')
     updateVolunteer({})
     
   }
