@@ -97,7 +97,7 @@ export default function OpportunityForm(props: FormProps) {
 
     if (!hasErrors) {
       postOpportunity();
-      navigate("/");
+      navigate("/Opportunities");
     }
   };
 

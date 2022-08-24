@@ -43,8 +43,7 @@ const TableRow = (props: RowProps): JSX.Element => {
       <Td>{props.profile.address}</Td>
       <Td>
         <Wrap>
-          <Tag>11:00AM-2:30PM</Tag>
-          <Tag>5:00PM-7:30PM</Tag>
+          {props.profile.availability.map((time: any) => <Tag key={time.availability.id}>{time.availability.time}</Tag>)}
         </Wrap>
       </Td>
       <Td>
