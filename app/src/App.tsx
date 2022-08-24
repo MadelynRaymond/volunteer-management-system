@@ -16,6 +16,7 @@ import OpportunityForm from "./components/OpportunityForm";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import Nav from "./components/Nav";
 import { StoreContext } from "./context/store";
+import EditOpportunity from "./views/EditOpportunity";
 
 
 export default function App() {
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="3" element={<EmergencyContactForm />} />
           </Route>
           <Route path="/CreateOpportunity" element={<OpportunityForm />} />
+          <Route path="/EditOpportunity/:id" element={<EditOpportunity/>}></Route>
           <Route path="/CreateVolunteer" element={<NewVolunteer />}>
             <Route path="1" element={<PersonalInfoForm />} />
             <Route path="2" element={<VolunteerInfoForm />} />

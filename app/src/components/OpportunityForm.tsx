@@ -12,12 +12,17 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { interests } from "../assets/interests";
 import MultiSelect from "./MultiSelect";
 
-export default function OpportunityForm() {
+interface FormProps {
+  existingOpportunity?: any
+}
+
+export default function OpportunityForm(props: FormProps) {
   const navigate = useNavigate();
+  const location = useLocation()
 
   const [submitted, setSubmitted] = React.useState(false);
   const [centers, setCenters] = React.useState<Array<{ id: number; name: string }>>();
@@ -37,6 +42,21 @@ export default function OpportunityForm() {
     setCenters(data);
   };
   React.useEffect(() => {
+
+    if(props.existingOpportunity) {
+      const opportunity = props.existingOpportunity
+      const tags = opportunity.tags.map((tag: any) => ({id: tag.skill.id, value: tag.skill.name}))
+      setTags(tags)
+      setCenter(opportunity.center.id)
+      setName(opportunity.name)
+      setAddress(opportunity.location)
+      const asDate = new Date(opportunity.date)
+      const formatted = `${asDate.getFullYear()}-${`0${asDate.getMonth() + 1}`}-${asDate.getDate()}`
+      setDate(formatted)
+      setStartTime(opportunity.startTime)
+      setEndTime(opportunity.endTime)
+      setDesc(opportunity.description)
+    }
     getCenters();
   }, []);
 
@@ -52,7 +72,12 @@ export default function OpportunityForm() {
       date
     };
 
-    console.log(opportunity)
+    if(location.pathname.includes('Edit')){
+      const id = location.pathname.split('/')[2]
+      console.log(id)
+      await axios.delete(`http://localhost:8080/Opportunities/${id}`)
+    }
+
     const { data } = await axios.post(
       "http://localhost:8080/Opportunities",
       opportunity
@@ -85,27 +110,28 @@ export default function OpportunityForm() {
         <Stack spacing="1.25rem">
           <FormControl isInvalid={hasError(name)} isRequired>
             <FormLabel>Opportunity Name:</FormLabel>
-            <Input onChange={(e) => setName(e.target.value)} type="text" />
+            <Input value={name} onChange={(e) => setName(e.target.value)} type="text" />
           </FormControl>
 
           <Flex gap="5" alignItems="end">
             <Box w="100%">
               <FormLabel>Tags:</FormLabel>
               <MultiSelect
-                value={tags}
+                value={[...tags]}
                 onChange={(selected) => setTags(selected)}
                 placeholder="Select Skills/Interests"
-                options={interests}/>
+                options={interests.map(entry => ({id: entry.id, value: entry.value}))}/>
             </Box>
             <Box w="100%">
               <FormControl isInvalid={hasError(center)} isRequired>
                 <FormLabel>Associated Center</FormLabel>
                 <Stack spacing={3}>
                   <Select
+                    value={center}
                     onChange={(e) => setCenter(e.target.value)}
                     variant="filled"
-                    placeholder="Select Center"
                   >
+                    <option value="">Select Center</option>
                     {centers &&
                       centers.map((center) => (
                         <option value={center.id} key={center.id}>
@@ -122,6 +148,7 @@ export default function OpportunityForm() {
               <FormControl isInvalid={hasError(startTime)} isRequired>
                 <FormLabel>Start Time</FormLabel>
                 <Input
+                  value={startTime}
                   onChange={(e) => setStartTime(e.target.value)}
                   type="text"
                   placeholder="8AM"
@@ -132,6 +159,7 @@ export default function OpportunityForm() {
               <FormControl isInvalid={hasError(endTime)} isRequired>
                 <FormLabel>End Time</FormLabel>
                 <Input
+                  value={endTime}
                   onChange={(e) => setEndTime(e.target.value)}
                   type="text"
                   placeholder="12PM"
@@ -146,6 +174,7 @@ export default function OpportunityForm() {
           <FormControl isInvalid={hasError(address)} isRequired>
             <FormLabel>Location Address:</FormLabel>
             <Input
+              value={address}
               onChange={(e) => setAddress(e.target.value)}
               type="text"
               placeholder="117 W. Duval St., Suite 210, Jacksonville, FL 32202"
@@ -155,6 +184,7 @@ export default function OpportunityForm() {
           <FormControl isInvalid={hasError(desc)} isRequired>
             <FormLabel>Description:</FormLabel>
             <Textarea
+              value={desc}
               onChange={(e) => setDesc(e.target.value)}
               placeholder="Please give a brief description of the opportunity for prospective volunteers."
             />

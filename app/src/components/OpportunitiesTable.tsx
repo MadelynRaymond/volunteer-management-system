@@ -57,7 +57,7 @@ function TableRow(props: RowProps): JSX.Element {
       <Td >{props.location}</Td>
       <Td>
         <Flex justifyContent={'space-between'} gap='0.5rem'>
-            <Link state={props.id} to={`/EditOpportunity/${props.id}/1`}>
+            <Link state={props.id} to={`/EditOpportunity/${props.id}`}>
               <IconButton aria-label='Search database' icon={<EditIcon />} />
             </Link>
             <DeleteDialog deleteAction={deleteOpportunity} deletionId={props.id} header="Delete Opportunity" body={`Delete opportunity "${props.name}?"`}/>
