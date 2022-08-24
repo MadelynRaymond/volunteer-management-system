@@ -57,9 +57,7 @@ export default function VolunteerInfoForm() {
     getCenters()
     getAvailability()
     if(volunteer && volunteer.volunteerInfo){
-      console.log(volunteer.volunteerInfo)
       const safeUpdate = Object.assign(volunteerInfo, volunteer.volunteerInfo)
-      console.log(safeUpdate)
       setVolunteerInfo({...safeUpdate})
     } 
   }, [])

@@ -36,7 +36,7 @@ export default function EmergencyContactForm() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const {volunteer, updateEmergencyInfo} = React.useContext(StoreContext) as StoreContext
+  const {volunteer, updateEmergencyInfo, updateVolunteer} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
 
   const [emergencyInfo, setEmergencyInfo] = React.useState<EmergencyInfo>({
@@ -46,6 +46,13 @@ export default function EmergencyContactForm() {
     contactHomePhoneNumber: '',
     contactWorkPhoneNumber: ''
   })
+
+  React.useEffect(() => {
+    if(volunteer && volunteer.emergencyInfo){
+      const safeUpdate = Object.assign(emergencyInfo, volunteer.emergencyInfo)
+      setEmergencyInfo({...safeUpdate})
+    }
+  }, [])
 
   React.useEffect(() => {
     updateEmergencyInfo({...emergencyInfo})
@@ -66,9 +73,15 @@ export default function EmergencyContactForm() {
   const submit = (e: any) => {
     setSubmitted(true)
     
-    const errors = hasErrors(emergencyInfo.contactName)
+    const errors = emergencyInfo.contactName === '' || emergencyInfo.contactHomePhoneNumber === ''
 
-    if(volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
+    if(errors) {
+      const delay = setTimeout(() => {
+        setSubmitted(false)
+        clearInterval(delay)
+      }, 500)
+    }
+    if(!errors && volunteer && volunteer.emergencyInfo) createVolunteer(volunteer as NewVolunteer)
 
   }
 
@@ -114,7 +127,8 @@ export default function EmergencyContactForm() {
     else {
       await axios.post("http://localhost:8080/Volunteers", volunteer)
     }
-    navigate('/')
+    navigate('/Volunteers')
+    updateVolunteer({})
     
   }
 
@@ -134,27 +148,27 @@ export default function EmergencyContactForm() {
         </Flex>
         <FormControl isInvalid={hasErrors(emergencyInfo.contactName)} isRequired>
           <FormLabel>Emergency Contact Name</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactName} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactName: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Emergency Contact Email</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactEmail: e.target.value})} type="email"></Input>
+          <Input value={emergencyInfo.contactEmail} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactEmail: e.target.value})} type="email"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Emergency Contact Address</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactAddress} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactAddress: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl isInvalid={hasErrors(emergencyInfo.contactHomePhoneNumber)} isRequired>
           <FormLabel>Home Phone Number</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactHomePhoneNumber} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactHomePhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <FormControl>
           <FormLabel>Work Phone Number</FormLabel>
-          <Input onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkPhoneNumber: e.target.value})} type="text"></Input>
+          <Input value={emergencyInfo.contactWorkPhoneNumber} onChange={(e) => setEmergencyInfo({...emergencyInfo, contactWorkPhoneNumber: e.target.value})} type="text"></Input>
         </FormControl>
 
         <Progress mt={'1rem'} hasStripe value={99} size="lg" colorScheme="purple" />

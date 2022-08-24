@@ -3,7 +3,7 @@ import { Box, Text, Button, Center, Flex, Stack, Input, Select, Switch } from '@
 import axios from 'axios'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import OpportunitiesTable from '../Components/OpportunitiesTable'
+import OpportunitiesTable from '../components/OpportunitiesTable'
 
 
 

@@ -33,7 +33,7 @@ export default function PersonalInfoForm() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const {volunteer, updatePersonalInfo, updateVolunteer} = React.useContext(StoreContext) as StoreContext
+  const {volunteer, updatePersonalInfo} = React.useContext(StoreContext) as StoreContext
   const [submitted, setSubmitted] = React.useState(false)
   const [personalInfo, setPersonalInfo] = React.useState<PersonalInfo>({
     firstName: "",
@@ -48,10 +48,8 @@ export default function PersonalInfoForm() {
   });
 
   React.useEffect(() => {
-    if(location.state === 'create'){
-      updateVolunteer(null)
-    }
-    else if(volunteer && volunteer.personalInfo){
+
+    if(volunteer && volunteer.personalInfo){
       const safeUpdate = Object.assign(personalInfo, volunteer.personalInfo)
       setPersonalInfo({...safeUpdate})
     }

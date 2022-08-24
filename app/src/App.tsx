@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import PersonalInfoForm from "./components/PersonalInfoForm";
 import VolunteerInfoForm from "./components/VolunteerInfoForm";
 import EmergencyContactForm from "./components/EmergencyContactForm";
@@ -15,14 +15,24 @@ import AdminPage from "./components/AdminPage";
 import OpportunityForm from "./components/OpportunityForm";
 import { Box, Button, Flex } from "@chakra-ui/react";
 import Nav from "./components/Nav";
+import { StoreContext } from "./context/store";
+import EditOpportunity from "./views/EditOpportunity";
 
 
 export default function App() {
-  
 
+  const location = useLocation()
+  const navigate = useNavigate()
+  const {token} = React.useContext(StoreContext) as StoreContext
+
+  React.useEffect(() => {
+    if(token === ''){
+      navigate('/Login')
+    }
+  }, [token])
+  
   return (
     <>
-      <BrowserRouter>
         <Nav></Nav>
         <Routes>
           <Route path="/" element={<AdminPage />} />
@@ -37,13 +47,13 @@ export default function App() {
             <Route path="3" element={<EmergencyContactForm />} />
           </Route>
           <Route path="/CreateOpportunity" element={<OpportunityForm />} />
+          <Route path="/EditOpportunity/:id" element={<EditOpportunity/>}></Route>
           <Route path="/CreateVolunteer" element={<NewVolunteer />}>
             <Route path="1" element={<PersonalInfoForm />} />
             <Route path="2" element={<VolunteerInfoForm />} />
             <Route path="3" element={<EmergencyContactForm />} />
           </Route>
         </Routes>
-      </BrowserRouter>
     </>
   )
 }

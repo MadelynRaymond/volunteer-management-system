@@ -47,7 +47,10 @@ export type StoreContext = {
     updatePersonalInfo: (update: PersonalInfo) => void,
     updateVolunteerInfo: (update: VolunteerInfo) => void,
     updateEmergencyInfo: (update: EmergencyInfo) => void,
-    updateVolunteer: (update: unknown) => void
+    updateVolunteer: (update: unknown) => void,
+    setLoggedIn: (token: string) => void,
+    getAuthHeader: () => {Authorization: string},
+    token: string
 }
 
 type Props = {
@@ -58,12 +61,20 @@ export const StoreContext = React.createContext<StoreContext | null>(null)
 
 const StoreProvider = ({children}: Props) => {
     const [volunteer, setVolunteer] = React.useState<Volunteer>({})
+    const [token, setToken] = React.useState('')
+
+    const setLoggedIn = (token: string) => setToken(token)
+
+    const getAuthHeader = () => token ? ({Authorization: `Bearer ${token}`}) : ({Authorization: ''})
 
     const updateVolunteer = (volunteer: unknown) => {
         
         const isExistingVolunteer = (data: unknown): data is VolunteerDTO => {
             if(data !== undefined && data !== null){
-                return true
+                if(typeof data === 'object'){
+                    if(Object.keys(data).length === 0 && Object.getPrototypeOf(data) === Object.prototype) return false
+                    return true
+                }
             }
             return false
         }
@@ -72,9 +83,6 @@ const StoreProvider = ({children}: Props) => {
             const preferredCenters = volunteer.profile.preferredCenters.map((entry) => ({id: entry.center.id, value: entry.center.name}))
             const skills = volunteer.profile.skills.map((entry) => ({id: entry.skill.id, value: entry.skill.name}))
             const availability = volunteer.profile.availability.map((entry) => ({id: entry.availability.id, value: entry.availability.time}))
-            console.log(preferredCenters)
-            console.log(skills)
-            console.log(availability)
             const personalInfo: PersonalInfo = {
                 firstName: volunteer.profile.firstName,
                 lastName: volunteer.profile.lastName,
@@ -107,7 +115,7 @@ const StoreProvider = ({children}: Props) => {
             setVolunteer({personalInfo, volunteerInfo, emergencyInfo})
         }
         else {
-            setVolunteer(emptyVolunteer)
+            setVolunteer({})
         }
     }
 
@@ -123,7 +131,7 @@ const StoreProvider = ({children}: Props) => {
         setVolunteer({...volunteer, emergencyInfo: update})
     }
 
-    return <StoreContext.Provider value={{volunteer, updateVolunteer, updatePersonalInfo, updateVolunteerInfo, updateEmergencyInfo}}>{children}</StoreContext.Provider>
+    return <StoreContext.Provider value={{volunteer, updateVolunteer, updatePersonalInfo, updateVolunteerInfo, updateEmergencyInfo, getAuthHeader, setLoggedIn, token}}>{children}</StoreContext.Provider>
 }
 
 export default StoreProvider

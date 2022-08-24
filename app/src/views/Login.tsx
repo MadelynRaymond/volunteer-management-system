@@ -1,14 +1,18 @@
-import { Box, Text, Flex, FormControl, FormLabel, Input, Stack, Button } from '@chakra-ui/react'
+import { Box, Text, Flex, FormControl, FormLabel, Input, Stack, Button, Center } from '@chakra-ui/react'
+import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { StoreContext } from '../context/store'
 
 export default function Login() {
 
   const navigate = useNavigate()
+  const {setLoggedIn} = React.useContext(StoreContext) as StoreContext
 
   const [username, setUsername] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [submitted, setSubmitted] = React.useState(false)
+  const [error, setError] = React.useState('')
 
   const notPopulated = (field: string) => field === '' && submitted
 
@@ -26,10 +30,27 @@ export default function Login() {
       }, 500)
     }
     else {
-      navigate('/')
+      login(username, password)
     }
 
-    
+  }
+
+  const login = async (username: string, password: string) => {
+    const response = await axios.get(`http://localhost:8080/Login/${username}/${password}`)
+    .catch((err) => {
+      if(err.response) {
+        setError(err.response.data.message)
+      }
+      const delay = setTimeout(() => {
+        setError('')
+        clearInterval(delay)
+      }, 10 * 300)
+    })
+
+    if(response && response.data.token) {
+      setLoggedIn(response.data.token)
+      navigate('/')
+    }
 
   }
 
@@ -46,8 +67,11 @@ export default function Login() {
                     </FormControl>
                     <FormControl isRequired isInvalid={notPopulated(password)}>
                         <FormLabel>Password:</FormLabel>
-                        <Input onChange={(e) => setPassword(e.target.value)} type="text" />
+                        <Input onChange={(e) => setPassword(e.target.value)} type="password" />
                     </FormControl>
+                    <Center>
+                      <Text color={'red.300'}>{error}</Text>
+                    </Center>
                     <Button onClick={(e) => submit(e)} colorScheme='purple'>Login</Button>
                     <Flex justifyContent={'center'}>
                       <Text color={'blue.600'}>Please contact IT Help Desk with any admin login issues: (904) 233-5555</Text>

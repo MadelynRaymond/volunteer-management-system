@@ -10,7 +10,11 @@ opportunitiesRoute.get('/', async (req, res) => {
     const opportunities = await prisma.opportunity.findMany({
       include: {
         center: true,
-        tags: true
+        tags: {
+          select: {
+            skill: true
+          }
+        }
       }
     })
   
@@ -27,7 +31,11 @@ opportunitiesRoute.get('/:id', async (req, res) => {
       },
       include: {
         center: true,
-        tags: true
+        tags: {
+          select: {
+            skill: true
+          }
+        }
       }
     })
   
