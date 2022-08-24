@@ -1,6 +1,8 @@
 This is the IS Senior Project (CIS4327) submission for Team "RTMR Tech."
 
 Credentials for admin account:
+username: admin
+password: password
 
 To run the server:
 1. cd into server folder
